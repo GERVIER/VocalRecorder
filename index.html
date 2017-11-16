@@ -3,26 +3,42 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="utils/bootstrap4/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">    
+    <!-- Bootstrap / JQuery / FontAwesome-->
+    <link rel="stylesheet" href="utils/bootstrap4/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="utils/font-awesome/css/font-awesome.min.css" />
     <script src="utils/jquery.min.js"></script>
     <script src="utils/bootstrap4/js/bootstrap.min.js"></script>
-    <title></title>
+    <!-- Own script and css-->
+    <link href="style.css" rel="stylesheet" />
+    <title> Home - LIUM Vocal Recorder</title>
 </head>
 <body>
-
-    <div class="container">
+    <!-- Three Colum interface selection of the people to use for the recognition -->
+    <div class="container-fluid">
         <div class="row">
-          <div class="col-sm">
-            One of three columns
-          </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
-          <div class="col-sm">
-            One of three columns
-          </div>
+            <!-- First Column Used for the search input -->
+            <div class="col-sm showBox">
+                    <form>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                            <input class="form-control" type="email"  id="inputPeopleResearch" placeholder="Search a people">
+                            <button class="btn btn-primary" type="search" > <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                        </div>
+                    </form>
+            </div>
+
+            <!-- Second Column, used for the showing the second part of the search result -->
+            <div class="col-sm showBox">
+                $
+            </div>
+
+            <!-- Third Column, used for the preview and to show the information of the selected people -->
+            <div class="col-sm showBox">
+                $
+            </div>
         </div>
-      </div>
+    </div>
 
 
 </body>
