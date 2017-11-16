@@ -14,28 +14,75 @@
     <title> Home - LIUM Vocal Recorder</title>
 </head>
 <body>
-    <!-- Three Colum interface selection of the people to use for the recognition -->
-    <div class="container-fluid">
+    <!-- Three Colum interface for the selection of people to use for the recognition -->
+    <div class="container-fluid mt-3">
         <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-8">
+                <h1 class="text-center">Interface Vocale pour la reconnaissance du locuteur</h1>
+            </div>
+            <div class="col-lg-2">
+                <img src="res/logo/lium.png" class="float-right" style="width:100px"/>                      
+            </div>
+        </div>
+        <div class="row mt-3">
             <!-- First Column Used for the search input -->
-            <div class="col-sm showBox">
-                    <form>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                            <input class="form-control" type="email"  id="inputPeopleResearch" placeholder="Search a people">
-                            <button class="btn btn-primary" type="search" > <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+            <div class="col-sm border border-dark border-top-0 border-left-0 border-bottom-0">
+                <!-- Research form-->
+                <form class="mb-2">
+                    <div class="input-group">
+                        <input class="form-control rounded-right" type="email"  id="inputPeopleResearch" placeholder="Search a people">
+                        <div class="btn-group">
+                            <button class="btn btn-primary ml-1" type="search" > <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                            <button class="btn btn-primary" type="search" > <i class="fa fa-filter" aria-hidden="true"></i></button>
                         </div>
-                    </form>
+                    </div>
+                </form>
+                <!-- Research form--> 
+                    <h2>D</h2>
+                    <div class="container-fuild">
+                        <div class="row mx-1 mb-3 peopleCard">
+                            <div class="col-lg-2 p-0">
+                                <img src="res/img/people/bowie.jpg" alt="Denis" class="rounded-circle w-100 p-0"/>
+                            </div>
+                            <div class="col-sm">
+                                <div class="d-flex flex-row h-100">
+                                        <ul class="list-group align-self-center">
+                                            <li class="list-group-item py-0 border-0">David Bowie</li>
+                                            <li class="list-group-item py-0 border-0">Language : English</li>
+                                            <li class="list-group-item py-0 border-0">69 year old</li>
+                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mx-1 mb-3 peopleCard">
+                            <div class="col-lg-2 p-0">
+                                <img src="res/img/people/denis.jpg" alt="Denis" class="rounded-circle w-100 p-0"/>
+                            </div>
+                            <div class="col-sm">
+                                <div class="d-flex flex-row h-100">
+                                    <ul class="list-group align-self-center">
+                                        <li class="list-group-item py-0 border-0">Denis Brogniard</li>
+                                        <li class="list-group-item py-0 border-0">Language : French</li>
+                                        <li class="list-group-item py-0 border-0">50 year old</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
 
             <!-- Second Column, used for the showing the second part of the search result -->
-            <div class="col-sm showBox">
-                $
+            <div class="col-sm border border-dark border-top-0 border-bottom-0">
+                
             </div>
 
             <!-- Third Column, used for the preview and to show the information of the selected people -->
-            <div class="col-sm showBox">
-                $
+            <div class="col-sm border border-dark border-top-0 border-right-0 border-bottom-0">
+                
             </div>
         </div>
     </div>

@@ -1,3 +1,8 @@
+
 .showBox{
     border: 1px solid black;
+}
+
+.peopleCard{
+    max-height: 115px !important;
 }
