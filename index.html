@@ -16,7 +16,7 @@
 <body>
     <!-- Three Colum interface for the selection of people to use for the recognition -->
     <div class="container-fluid mt-3">
-        <div class="row">
+        <header class="row">
             <div class="col-lg-2">
 
             </div>
@@ -26,8 +26,8 @@
             <div class="col-lg-2">
                 <img src="res/logo/lium.png" class="float-right" style="width:100px"/>                      
             </div>
-        </div>
-        <div class="row mt-3">
+        </header>
+        <section class="row mt-3">
             <!-- First Column Used for the search input -->
             <div class="col-sm border border-dark border-top-0 border-left-0 border-bottom-0">
                 <!-- Research form-->
@@ -43,33 +43,30 @@
                 <!-- Research form--> 
                     <h2>D</h2>
                     <div class="container-fuild">
-                        <div class="row mx-1 mb-3 peopleCard">
-                            <div class="col-lg-2 p-0">
-                                <img src="res/img/people/bowie.jpg" alt="Denis" class="rounded-circle w-100 p-0"/>
-                            </div>
-                            <div class="col-sm">
-                                <div class="d-flex flex-row h-100">
-                                        <ul class="list-group align-self-center">
-                                            <li class="list-group-item py-0 border-0">David Bowie</li>
-                                            <li class="list-group-item py-0 border-0">Language : English</li>
-                                            <li class="list-group-item py-0 border-0">69 year old</li>
-                                        </ul>
+                        <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard">
+                            <div class="col-xs-auto p-0">
+                                <div class="d-flex flex-row h-100 peopleImage"> 
+                                    <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
                                 </div>
+                            </div>
+                            <div class="col-xs d-flex flex-column justify-content-center pl-3">
+                                <p class="mb-0"><b>David Bowie</b></p>
+                                <p class="mb-0">Language : English</p>
+                                <p class="mb-0">69 year old</p>
                             </div>
                         </div>
 
-                        <div class="row mx-1 mb-3 peopleCard">
-                            <div class="col-lg-2 p-0">
-                                <img src="res/img/people/denis.jpg" alt="Denis" class="rounded-circle w-100 p-0"/>
-                            </div>
-                            <div class="col-sm">
-                                <div class="d-flex flex-row h-100">
-                                    <ul class="list-group align-self-center">
-                                        <li class="list-group-item py-0 border-0">Denis Brogniard</li>
-                                        <li class="list-group-item py-0 border-0">Language : French</li>
-                                        <li class="list-group-item py-0 border-0">50 year old</li>
-                                    </ul>
+                        <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard">
+                            <div class="col-xs-auto p-0">
+                                <div class="d-flex flex-row h-100 peopleImage">
+                                    <img src="res/img/people/denis.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
                                 </div>
+                            </div>
+                                
+                            <div class="col-xs d-flex flex-column justify-content-center pl-3">
+                                <p class="mb-0"><b>Denis Brogniard</b></p>
+                                <p class="mb-0">Language : French</p>
+                                <p class="mb-0">50 year old</p>
                             </div>
                         </div>
                     </div>
@@ -82,9 +79,35 @@
 
             <!-- Third Column, used for the preview and to show the information of the selected people -->
             <div class="col-sm border border-dark border-top-0 border-right-0 border-bottom-0">
-                
+                <article class="container-fuild">
+                    <div class="row">
+                        <div class="col-sm-3 d-flex flex-column justify-content-center">
+                            <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                         
+                        </div>
+                        <div class="col-sm d-flex flex-column justify-content-center">
+                            <h3 class="text-center">David Bowie</h3>
+                            <p class="text-center mb-0">Speek English</p>
+                            <p class="text-center">69 years old</p>
+                        </div>
+                        <div class="col-sm-3 d-flex flex-column justify-content-center">
+                            <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                   
+                        </div>
+                    </div>
+                </article>
+
             </div>
-        </div>
+        </section>
+        <footer class="row">
+            <nav aria-label="Page navigation" class="ml-3">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                    </ul>
+            </nav>
+        </footer>
     </div>
 
 
