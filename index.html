@@ -29,7 +29,7 @@
         </header>
         <section class="row mt-3">
             <!-- First Column Used for the search input -->
-            <div class="col-sm border border-dark border-top-0 border-left-0 border-bottom-0">
+            <div class="col-sm ">
                 <!-- Research form-->
                 <form class="mb-2">
                     <div class="input-group">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </form>
-                <!-- Research form--> 
+                <!-- List of people card --> 
                     <h2>D</h2>
                     <div class="container-fuild">
                         <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard">
@@ -55,7 +55,7 @@
                                 <p class="mb-0">69 year old</p>
                             </div>
                         </div>
-
+                        <!-- People card --> 
                         <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard">
                             <div class="col-auto p-0">
                                 <div class="d-flex flex-row h-100 peopleImage">
@@ -73,14 +73,15 @@
             </div>
 
             <!-- Second Column, used for the showing the second part of the search result -->
-            <div class="col-sm border border-dark border-top-0 border-bottom-0">
+            <div class="col-sm border border-dark border-top-0 border-bottom-0 border-left-0">
                 
             </div>
 
             <!-- Third Column, used for the preview and to show the information of the selected people -->
             <div class="col-sm border border-dark border-top-0 border-right-0 border-bottom-0">
                 <article class="container-fuild">
-                    <div class="row">
+                    <!-- Three colum, one per iamge with the center one beeing the one showing the information --> 
+                    <div class="row mb-2">
                         <div class="col-3 d-flex flex-column justify-content-center">
                             <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                         
                         </div>
@@ -93,10 +94,56 @@
                             <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                   
                         </div>
                     </div>
+
+                    <!-- Addition information  --> 
+                    <div class="row mx-1">
+                        <p class="mb-0">
+                            <b>Role : </b> Journalist  <br />
+                            <b>Other Information : </b> <br />
+                                <span class="mx-4"> <b> Micro type :</b> Tie     <br /> </span>
+                                <span class="mx-4"> <b> Studio :</b>     Yes         <br /> </span>
+                                <span class="mx-4"> <b> Outdoor :</b>    No         <br /> </span>
+                        </p>
+                    </div>
+
+                     <!-- Button add  --> 
+                    <div class="row mx-1 mt-5 d-flex flex-row justify-content-center">
+                        <button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add to list </button>
+                    </div>
+
                 </article>
+
 
             </div>
         </section>
+
+         <!-- List of the selected people  --> 
+        <article class="fixed-bottom">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col ">
+                        <ul>
+                            <li>
+                             
+                            </li>
+                        </ul>
+                           
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col d-flex flex-row justify-content-center">
+                            <button class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Validate Selection </button>
+                        </div>
+                    </div>
+            </div>
+
+        </article>
+
         <footer class="row">
             <nav aria-label="Page navigation" class="ml-3">
                     <ul class="pagination">
