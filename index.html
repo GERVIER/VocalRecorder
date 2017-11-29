@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="utils/bootstrap4/css/bootstrap.min.css" />
     <link rel="stylesheet" href="utils/font-awesome/css/font-awesome.min.css" />
     <script src="utils/jquery.min.js"></script>
-    <script src="utils/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="utils/bootstrap4/js/bootstrap.bundle.min.js"></script>
     <!-- Own script and css-->
     <link href="style.css" rel="stylesheet" />
     <title> Home - LIUM Vocal Recorder</title>
@@ -31,15 +31,27 @@
             <!-- First Column Used for the search input -->
             <div class="col-sm ">
                 <!-- Research form-->
-                <div class="mb-2">
+                <nav class="mb-2">
                     <div class="input-group">
                         <input class="form-control rounded-right" type="email"  id="inputPeopleResearch" placeholder="Search a people">
                         <div class="btn-group">
                             <button class="btn btn-primary ml-1" type="search" > <i class="fa fa-search" aria-hidden="true"></i> Search</button>
-                            <button class="btn btn-primary" type="search" > <i class="fa fa-filter" aria-hidden="true"></i></button>
+                            
+                            <button id="filterButton" class="btn btn-primary dropdown-toggle" type="search" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </button>
+
+                            <div class="dropdown-menu" aria-labelledby="filterButton">
+                                <a class="dropdown-item" href="#"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> Alphebetical Order</a>
+                                <a id="languageMenu" class="dropdown-item" href="#" data-toggle="modal" data-target="#languageFilter">
+                                    <i class="fa fa-globe" aria-hidden="true"></i> Language
+                                </a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-flask" aria-hidden="true"></i> Role</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </nav>
                 <!-- List of people card --> 
                     <h2>D</h2>
                     <div class="container-fuild">
@@ -131,7 +143,7 @@
                                     <!-- a list member -->
                                     <div class="col-2 p-0 mx-1">
                                         <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
-                                        <p style="text-align:end">
+                                        <p style="text-align:end;margin-top: -1em">
                                             <button type="button" class="close" aria-label="Close"> 
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -140,7 +152,7 @@
                                     <!-- an other list member -->
                                     <div class="col-2 p-0 mx-1">
                                         <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
-                                        <p style="text-align:end">
+                                        <p style="text-align:end;margin-top: -1em">
                                             <button type="button" class="close" aria-label="Close"> 
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -156,7 +168,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- Button to validate the list -->
                 <div class="row mb-2">
                         <div class="col"></div>
                         <div class="col"></div>
@@ -179,6 +191,27 @@
                     </ul>
             </nav>
         </footer>
+
+        <!-- Modal (popup) for the language filter-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="languageFilter">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Choose the language to show : </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Validate</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
