@@ -32,6 +32,7 @@ function requestPagination(){
  * 
  */
 function requestData(){
+    console.log("Left first : " + first);
     $("#peopleListRight").empty();
     $("#peopleListLeft").empty();
     $.ajax({
@@ -45,6 +46,7 @@ function requestData(){
         },
     });
 
+    console.log("Right first : " + (first+numberPerColumn));
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',

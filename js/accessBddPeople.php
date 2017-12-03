@@ -43,7 +43,7 @@
         $request->closeCursor();
     }
 
-    function getPeopleAsListInversed(){
+    function getPeopleAsListInversed($dataSended){
         if(isset($dataSended['first'])){
             $first = $dataSended['first'];
         }
@@ -59,7 +59,7 @@
         }
 
         $bdd = accessBDD();
-        $request = $bdd->query('SELECT * FROM people ORDER by name DESC LIMIT '.$numberPerColumn.' OFFSET '. $first.' ');
+        $request = $bdd->query('SELECT * FROM people ORDER by name DESC LIMIT '.$numberPerColumn.' OFFSET '. $first.'');
 
         echo echoListOfPeople($request);
 
@@ -99,6 +99,8 @@
                     </div>
             ';
         }
+
+        $request->closeCursor();
     }
 
     function getAPeople($dataSended){
@@ -122,10 +124,10 @@
         echo '  <!-- People main information  -->
                 <div class="row mb-2">
                     <div class="col-3 d-flex flex-column justify-content-center">
-                        <img src="'.$picture.'" alt="'.$name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                         
+                        <img id="peopleImage" src="'.$picture.'" alt="'.$name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                         
                     </div>
                     <div class="col d-flex flex-column justify-content-center">
-                        <h3 class="text-center">'.$name.'</h3>
+                        <h3 id="peopleName" class="text-center">'.$name.'</h3>
                         <p class="text-center mb-0">Speek '.$language.'</p>
                         <p class="text-center">'.$age.' years old</p>
                     </div>
@@ -146,4 +148,30 @@
                 </div>';
 
         $request->closeCursor();
+    }
+
+    function getPeopleFinalList($dataSended){
+        if(isset($dataSended['id'])){
+            $id = $dataSended['id'];
+        }
+        else{
+            $id = 1;
+        }
+
+        $bdd = accessBDD();
+        $request = $bdd->query('SELECT * FROM people WHERE id = '.$id.'');
+
+        $data = $request->fetch();
+
+        $name = $data['name'];
+        $picture = $data['picture'];
+
+        echo '<div class="col-2 p-0 mx-1">
+                <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
+                <p style="text-align:end;margin-top: -1em">
+                    <button onclick="removePeople('.$id.')" type="button" class="close" aria-label="Close"> 
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </p>
+                </div>';
     }
