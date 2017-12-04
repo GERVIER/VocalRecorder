@@ -35,31 +35,20 @@
             $numberPerColumn = 6;
         }
 
-        $bdd = accessBDD();
-        $request = $bdd->query('SELECT * FROM people ORDER by name LIMIT '.$numberPerColumn.' OFFSET '. $first.' ');
-
-        echo echoListOfPeople($request);
-
-        $request->closeCursor();
-    }
-
-    function getPeopleAsListInversed($dataSended){
-        if(isset($dataSended['first'])){
-            $first = $dataSended['first'];
-        }
-        else{
-            $first = 0;
-        }
-
-        if(isset($dataSended['numberPerColumn'])){
-            $numberPerColumn = $dataSended['numberPerColumn'];
-        }
-        else{
-            $numberPerColumn = 6;
+        if(isset($dataSended['order'])){
+            $order = $dataSended['order'];
+        }else{
+            $order = "asc";
         }
 
         $bdd = accessBDD();
-        $request = $bdd->query('SELECT * FROM people ORDER by name DESC LIMIT '.$numberPerColumn.' OFFSET '. $first.'');
+        
+        if($order == "asc"){
+            $request = $bdd->query('SELECT * FROM people ORDER by name LIMIT '.$numberPerColumn.' OFFSET '. $first.' ');
+        }
+        else{
+            $request = $bdd->query('SELECT * FROM people ORDER by name DESC LIMIT '.$numberPerColumn.' OFFSET '. $first.' ');
+        }
 
         echo echoListOfPeople($request);
 
@@ -72,6 +61,9 @@
             $name = $data['name'];
             $age = $data['age'];
             $picture = $data['picture'];
+            if($picture == "undefined"){
+                $picture = "res/img/people/empty.jpg";
+            }
             $language = $data['language']; 
             
             if(isset($first_letter)){
@@ -119,7 +111,19 @@
         $name = $data['name'];
         $age = $data['age'];
         $picture = $data['picture'];
+
+        if($picture == "undefined"){
+            $picture = "res/img/people/empty.jpg";
+        }
+
         $language = $data['language']; 
+        $role = $data['role'];
+        $otherData = $data['other'];
+
+        $otherData = json_decode($otherData, true);
+        $microType = (isset($otherData['MicroType']))?$otherData['MicroType']:"not defined";
+        $studio = (isset($otherData['Studio']))?$otherData['Studio']:"not defined";
+        $outDoor = (isset($otherData['OutDoor']))?$otherData['OutDoor']:"not defined";
         
         echo '  <!-- People main information  -->
                 <div class="row mb-2">
@@ -139,11 +143,11 @@
                 <!-- Addition information  --> 
                 <div class="row mx-1">
                     <p class="mb-0">
-                        <b>Role : </b> Journalist  <br />
+                        <b>Role : </b> '.$role.'  <br />
                         <b>Other Information : </b> <br />
-                            <span class="mx-4"> <b> Micro type :</b> Tie     <br /> </span>
-                            <span class="mx-4"> <b> Studio :</b>     Yes         <br /> </span>
-                            <span class="mx-4"> <b> Outdoor :</b>    No         <br /> </span>
+                            <span class="mx-4"> <b> Micro type :</b> '.$microType.'     <br /> </span>
+                            <span class="mx-4"> <b> Studio :</b>     '.$studio.'         <br /> </span>
+                            <span class="mx-4"> <b> Outdoor :</b>    '.$outDoor.'         <br /> </span>
                     </p>
                 </div>';
 
@@ -155,23 +159,51 @@
             $id = $dataSended['id'];
         }
         else{
-            $id = 1;
+            $id = [0];
         }
 
+        $idList = "";
+        for($i = 0; $i<count($id); $i = $i+1){
+            if($i != (count($id)-1)){
+                $idList .= $id[$i].", ";
+            }
+            else{
+                $idList .= $id[$i]." ";
+            }
+            
+           
+        }
         $bdd = accessBDD();
-        $request = $bdd->query('SELECT * FROM people WHERE id = '.$id.'');
 
-        $data = $request->fetch();
+        
+        $request = $bdd->query('SELECT * FROM people WHERE id in ('.$idList.') ORDER BY name ');
 
-        $name = $data['name'];
-        $picture = $data['picture'];
+        while($data = $request->fetch()){
+            $id = $data['id'];
+            $name = $data['name'];
+            $picture = $data['picture'];
+            if($picture == "undefined"){
+                $picture = "res/img/people/empty.jpg";
+            }
+            
+            echo '<div class="col-2 p-0 mx-1">
+                    <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center" data-toggle="tooltip" data-html="true" title="'.$name.'"/>
+                    <p style="text-align:end;margin-top: -1em">
+                        <button onclick="removePeople('.$id.')" type="button" class="close" aria-label="Close"> 
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </p>
+                    </div>';
+        }
+    }
 
-        echo '<div class="col-2 p-0 mx-1">
-                <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
-                <p style="text-align:end;margin-top: -1em">
-                    <button onclick="removePeople('.$id.')" type="button" class="close" aria-label="Close"> 
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </p>
-                </div>';
+    function getAllLanguage(){
+        $bdd = accessBDD();
+        $request = $bdd->query('SELECT DISTINCT(language) FROM people ORDER BY language');
+
+        while($data = $request->fetch()){
+            echo '<a href="#" class="list-group-item list-group-item-action">'.$data['language'].'</a>';
+        }
+
+        $request->closeCursor();
     }

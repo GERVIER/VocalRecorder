@@ -21,7 +21,7 @@
         
             </div>
             <div class="col-lg-8">
-                <h1 class="text-center">Interface Vocale pour la reconnaissance du locuteur</h1>
+                <h1 class="text-center">Interface for speaker recognition</h1>
             </div>
             <div class="col-lg-2">
                 <img src="res/logo/lium.png" class="float-right" style="width:100px"/>                      
@@ -70,7 +70,22 @@
                 <article class="container-fuild">
                     <!-- Three colum, one per iamge with the center one beeing the one showing the information --> 
                     <div id="peopleInfo">
+                        <div class="row mb-2">
+                            <div class="col-3 d-flex flex-column justify-content-center">
+                                <img id="peopleImage" src="res/img/people/empty.jpg" alt="" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                         
+                            </div>
+                            <div class="col d-flex flex-column justify-content-center">
+                                <h3 id="peopleName" class="text-center">Personnal Information</h3>
+                            </div>
+                            <div class="col-3 d-flex flex-column justify-content-center">
+                            </div>
+                        </div>
 
+                        <div class="row mx-1">
+                            <p class="mb-0">
+                                <b>Please select a person to view their information</b>
+                            </p>
+                        </div>
                     </div>
                      <!-- Button add  --> 
                     <div class="row mx-1 mt-5 d-flex flex-row justify-content-center">
@@ -83,26 +98,7 @@
                             <!-- Container of the list -->
                             <div class="container-fluid">
                                 <div id="finalPeopleList" class="row mb-2">
-                                    <!-- a list member -->
-                                    <div class="col-2 p-0 mx-1">
-                                        <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
-                                        <p style="text-align:end;margin-top: -1em">
-                                            <button type="button" class="close" aria-label="Close"> 
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </p>
-                                    </div>
-                                    <!-- an other list member -->
-                                    <div class="col-2 p-0 mx-1">
-                                        <img src="res/img/people/bowie.jpg" alt="D Bowie" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
-                                        <p style="text-align:end;margin-top: -1em">
-                                            <button type="button" class="close" aria-label="Close"> 
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </p>
-                                    </div>
                                     
-                                <!-- End of the list -->
                                 </div>                
                             </div>
                         </div>
@@ -137,7 +133,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Modal body text goes here.</p>
+                        <div id="listLanguage" class="list-group">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary">Validate</button>

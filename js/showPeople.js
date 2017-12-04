@@ -5,14 +5,15 @@ var peopleIdList = new Array(0);
  */
 function showPeopleInfo(id){
     console.log("Click on : " + id);
-    $("#peopleInfo").empty();
+    //$("#peopleInfo").empty();
     $.ajax({
         url : 'accessFunction.php', 
         type : 'POST', 
         data : {fonction : 'getAPeople', id : id}, 
         dataType : 'text',
         success : function (result, statut){
-            $(result).appendTo("#peopleInfo");
+            //$(result).appendTo("#peopleInfo");
+            $("#peopleInfo").html(result);
             $("#addPeopleToListButton").attr('onclick', 'addPeopleToFinalList('+ id +')')
         },
         error : function (resultat, statut, erreur){
@@ -31,8 +32,10 @@ function addPeopleToFinalList(id){
     }else{
         image = $("#peopleImage").attr('src');
         console.log("Add people id " + id + " picture " + image);
-        peopleIdList.push(id);
-
+        console.log();
+        if(peopleIdList.indexOf(id) == -1){
+            peopleIdList.push(id);
+        }
         console.log("New List : ");
         updatePeopleList();
     }
@@ -62,20 +65,20 @@ function removePeople(id){
  * Update the view of people to use with the vocal recognition
  */
 function updatePeopleList(){
-    $("#finalPeopleList").empty();
     for(i = 0; i<peopleIdList.length; i++){
         console.log("Id : " + peopleIdList[i]);
-        $.ajax({
-            url : 'accessFunction.php', 
-            type : 'POST', 
-            data : {fonction : 'getPeopleFinalList', id : peopleIdList[i]}, 
-            dataType : 'text',
-            success : function (result, statut){
-                $(result).appendTo("#finalPeopleList");
-            },
-            error : function (resultat, statut, erreur){
-                console.log(resultat);
-            },
-        });
     }
+    $.ajax({
+        url : 'accessFunction.php', 
+        type : 'POST', 
+        data : {fonction : 'getPeopleFinalList', id : peopleIdList}, 
+        dataType : 'text',
+        success : function (result, statut){
+            $("#finalPeopleList").html(result);
+            $('[data-toggle="tooltip"]').tooltip()
+        },
+        error : function (resultat, statut, erreur){
+            console.log(resultat);
+        },
+    });
 }

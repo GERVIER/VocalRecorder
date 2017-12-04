@@ -1,4 +1,5 @@
 $(document).ready(function (){
+    getAllLanguage()
     requestData();
     requestPagination();
 });
@@ -6,8 +7,7 @@ $(document).ready(function (){
 var currentPage = 1;
 var first = 0;
 var numberPerColumn = 6;
-var functionToCall = 'getPeopleAsList';
-
+var order = "asc";
 /**
  * 
  */
@@ -33,16 +33,17 @@ function requestPagination(){
  */
 function requestData(){
     console.log("Left first : " + first);
-    $("#peopleListRight").empty();
-    $("#peopleListLeft").empty();
+    //$("#peopleListRight").empty();
+    //$("#peopleListLeft").empty();
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: functionToCall, first: first, numberPerColumn : numberPerColumn},
+        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order},
         dataType : 'html',
         success : function (codeHTML, statut){
             console.log("Current page : " + currentPage);
-            $(codeHTML).appendTo("#peopleListLeft");
+           // $(codeHTML).appendTo("#peopleListLeft");
+            $("#peopleListLeft").html(codeHTML);
         },
     });
 
@@ -50,10 +51,11 @@ function requestData(){
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: functionToCall, first: (first+numberPerColumn), numberPerColumn : numberPerColumn},
+        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order},
         dataType : 'html',
         success : function (codeHTML, statut){
-            $(codeHTML).appendTo("#peopleListRight");
+            //$(codeHTML).appendTo("#peopleListRight");
+            $("#peopleListRight").html(codeHTML);
         },
     });
 }
@@ -93,16 +95,29 @@ function changePage(page){
  * Altern between the asc alphabetical order and desc 
  */
 function changeAlphaOrder(){
-    if(functionToCall == 'getPeopleAsList'){
-        functionToCall = 'getPeopleAsListInversed';
+    if(order == 'asc'){
+        order = 'desc';
         $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-asc");
     }
     else{
-        functionToCall = 'getPeopleAsList';
+        order = 'asc';
         $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-desc");
     }
     
     requestData();
     
-    console.log("Changed to : " + functionToCall);
+    console.log("Changed to : " + order);
+}
+
+function getAllLanguage(){
+    $.ajax({
+        url : 'accessFunction.php',
+        type : 'POST',
+        data: {fonction: 'getAllLanguage'},
+        dataType : 'html',
+        success : function (codeHTML, statut){
+            console.log("Current page : " + currentPage);
+            $("#listLanguage").html(codeHTML);
+        },
+    });
 }
