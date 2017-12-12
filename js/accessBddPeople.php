@@ -10,9 +10,17 @@
         return $bdd;
     }
 
-    function getPeopleCount(){
+    function getPeopleCount($dataSended){
+        $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
+
         $bdd = accessBDD();
-        $request = $bdd->query('SELECT count(*) as numberPeople FROM people');
+        $requestText = 'SELECT count(*) as numberPeople FROM people';
+
+        if($language != "all"){
+            $requestText .= ' WHERE language LIKE \''.$language.'\' ';
+        }
+
+        $request = $bdd->query($requestText);
         $data = $request->fetch();
 
         echo $data['numberPeople'];
@@ -21,35 +29,28 @@
     }
 
     function getPeopleAsList($dataSended){
-        if(isset($dataSended['first'])){
-            $first = $dataSended['first'];
-        }
-        else{
-            $first = 0;
-        }
 
-        if(isset($dataSended['numberPerColumn'])){
-            $numberPerColumn = $dataSended['numberPerColumn'];
-        }
-        else{
-            $numberPerColumn = 6;
-        }
-
-        if(isset($dataSended['order'])){
-            $order = $dataSended['order'];
-        }else{
-            $order = "asc";
-        }
+        $first =            (isset($dataSended['first']))           ?   $dataSended['first']            :0;
+        $numberPerColumn =  (isset($dataSended['numberPerColumn'])) ?   $dataSended['numberPerColumn']  :6;
+        $order =            (isset($dataSended['order']))           ?   $dataSended['order']            :"asc";
+        $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
 
         $bdd = accessBDD();
         
-        if($order == "asc"){
-            $request = $bdd->query('SELECT * FROM people ORDER by name LIMIT '.$numberPerColumn.' OFFSET '. $first.' ');
-        }
-        else{
-            $request = $bdd->query('SELECT * FROM people ORDER by name DESC LIMIT '.$numberPerColumn.' OFFSET '. $first.' ');
+        $requestText = 'SELECT * FROM people ';
+
+        if($language != "all"){
+            $requestText .= ' WHERE language LIKE \''.$language.'\' ';
         }
 
+        $requestText .= ' ORDER by name ';
+
+        if($order == "desc"){
+            $requestText .= ' DESC ';
+        }
+
+        $requestText .= ' LIMIT '.$numberPerColumn.' OFFSET '. $first.' ';
+        $request = $bdd->query($requestText);
         echo echoListOfPeople($request);
 
         $request->closeCursor();
@@ -77,7 +78,7 @@
             }
             
             echo '  <!-- A People card -->             
-                    <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard" onClick="showPeopleInfo('.$id.')">
+                    <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard" onClick="showPeopleInfo('.$id.')" draggable="true" onDragStart="dragPeople(event, '.$id.')">
                         <div class="col-auto p-0">
                             <div class="d-flex flex-row h-100 peopleImage"> 
                                 <img src="'.$picture.'" alt="'.$name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
@@ -202,7 +203,7 @@
         $request = $bdd->query('SELECT DISTINCT(language) FROM people ORDER BY language');
 
         while($data = $request->fetch()){
-            echo '<a href="#" class="list-group-item list-group-item-action">'.$data['language'].'</a>';
+            echo '<a href="#" class="list-group-item list-group-item-action" data-dismiss="modal" onClick="changeLanguage(\''.$data['language'].'\')">'.$data['language'].'</a>';
         }
 
         $request->closeCursor();

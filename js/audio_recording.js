@@ -23,7 +23,7 @@ var context = null;
 var blob = null;
 var sendData = true;
 
-startRecordingButton.addEventListener("click", function () {
+function startRecording() {
     // Initialize recorder
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
     navigator.getUserMedia(
@@ -68,9 +68,9 @@ startRecordingButton.addEventListener("click", function () {
                 function (e) {
                     console.error(e);
                 });
-});
+}
 
-stopRecordingButton.addEventListener("click", function () {
+function stopRecording() {
     // stop recording
     recorder.disconnect(context.destination);
     mediaStream.disconnect(recorder);
@@ -78,7 +78,7 @@ stopRecordingButton.addEventListener("click", function () {
     console.log("Création du Wav");
     blob = createWavDataMonoChanel(audioChannel, recordingLength);
     console.log("Fichier Créer");
-});
+}
 
 playButton.addEventListener("click", function () {
     if (blob == null) {

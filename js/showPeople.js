@@ -22,6 +22,10 @@ function showPeopleInfo(id){
     });
 }
 
+function dragPeople(e, id){
+    e.dataTransfer.setData('text/plain', id);
+}
+
 /**
  * Add a people to the destination list
  * @param {*} id 
@@ -30,6 +34,9 @@ function addPeopleToFinalList(id){
     if(id == -1){
         console.log("");
     }else{
+        if(typeof(id) == "string")
+            id = parseInt(id);
+
         image = $("#peopleImage").attr('src');
         console.log("Add people id " + id + " picture " + image);
         console.log();
@@ -40,6 +47,7 @@ function addPeopleToFinalList(id){
         updatePeopleList();
     }
 }
+
 
 /**
  * Remove of people of the list
@@ -68,17 +76,22 @@ function updatePeopleList(){
     for(i = 0; i<peopleIdList.length; i++){
         console.log("Id : " + peopleIdList[i]);
     }
-    $.ajax({
-        url : 'accessFunction.php', 
-        type : 'POST', 
-        data : {fonction : 'getPeopleFinalList', id : peopleIdList}, 
-        dataType : 'text',
-        success : function (result, statut){
-            $("#finalPeopleList").html(result);
-            $('[data-toggle="tooltip"]').tooltip()
-        },
-        error : function (resultat, statut, erreur){
-            console.log(resultat);
-        },
-    });
+
+    if(peopleIdList.length == 0){
+        $("#finalPeopleList").html("<p>Add someone to the list, or drag it here !</p>");
+    }else{
+        $.ajax({
+            url : 'accessFunction.php', 
+            type : 'POST', 
+            data : {fonction : 'getPeopleFinalList', id : peopleIdList}, 
+            dataType : 'text',
+            success : function (result, statut){
+                $("#finalPeopleList").html(result);
+                $('[data-toggle="tooltip"]').tooltip()
+            },
+            error : function (resultat, statut, erreur){
+                console.log(resultat);
+            },
+        });
+    }
 }
