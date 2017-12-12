@@ -33,15 +33,16 @@
                 <!-- Research form-->
                 <nav class="mb-2">
                     <div class="input-group">
-                        <input class="form-control rounded-right" type="email"  id="inputPeopleResearch" placeholder="Search a people">
+                        <input class="form-control rounded-right" type="text"  id="inputPeopleResearch" placeholder="Search a people">
                         <div class="btn-group">
-                            <button class="btn btn-primary ml-1" type="search" > <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                            <button class="btn btn-primary ml-1" type="search" onclick="searchPeople()"> <i class="fa fa-search" aria-hidden="true"></i> Search</button>
                             
                             <button id="filterButton" class="btn btn-primary dropdown-toggle" type="search" 
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                                 <i class="fa fa-filter" aria-hidden="true"></i>
                             </button>
 
+                            <!-- Filter DropDown Menu-->
                             <div class="dropdown-menu" aria-labelledby="filterButton">
                                 <a class="dropdown-item" href="#" onClick="changeAlphaOrder()"><i id="logoAlphaOrder" class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Alphebetical Order</a>
                                 <a id="languageMenu" class="dropdown-item" href="#" data-toggle="modal" data-target="#languageFilter">

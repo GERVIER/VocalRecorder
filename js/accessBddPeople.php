@@ -12,12 +12,21 @@
 
     function getPeopleCount($dataSended){
         $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
-
+        $term =             (isset($dataSended['term']))            ?   $dataSended['term']             :"";
+        
         $bdd = accessBDD();
         $requestText = 'SELECT count(*) as numberPeople FROM people';
 
         if($language != "all"){
             $requestText .= ' WHERE language LIKE \''.$language.'\' ';
+
+            if($term != ""){
+                $requestText .= ' AND name LIKE \'%'.$term.'%\'';
+            }
+        }else{
+            if($term != ""){
+                $requestText .= ' WHERE name LIKE \'%'.$term.'%\' ';
+            }
         }
 
         $request = $bdd->query($requestText);
@@ -34,6 +43,7 @@
         $numberPerColumn =  (isset($dataSended['numberPerColumn'])) ?   $dataSended['numberPerColumn']  :6;
         $order =            (isset($dataSended['order']))           ?   $dataSended['order']            :"asc";
         $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
+        $term =             (isset($dataSended['term']))            ?   $dataSended['term']             :"";
 
         $bdd = accessBDD();
         
@@ -41,6 +51,14 @@
 
         if($language != "all"){
             $requestText .= ' WHERE language LIKE \''.$language.'\' ';
+
+            if($term != ""){
+                $requestText .= ' AND name LIKE \'%'.$term.'%\'';
+            }
+        }else{
+            if($term != ""){
+                $requestText .= ' WHERE name LIKE \'%'.$term.'%\' ';
+            }
         }
 
         $requestText .= ' ORDER by name ';

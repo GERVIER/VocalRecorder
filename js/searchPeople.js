@@ -4,9 +4,16 @@ $(document).ready(function (){
     requestData();
     requestPagination();
 
+
+    $("#inputPeopleResearch").bind("keypress", function(e){
+        if(e.keyCode == 13)
+            searchPeople();
+    });
+
     $("#finalPeopleList").bind("dragover", function(e){
         e.preventDefault();
     });
+
     $("#finalPeopleList").bind("drop", function(e){
         var id = e.dataTransfer.getData('text/plain');
         console.log(id);      
@@ -21,15 +28,17 @@ var first = 0;
 var numberPerColumn = 6;
 var order = "asc";
 var language = "all";
+var searchTerm = "";
+
 /**
- * 
+ * Show and/or reset the pagination with the actual parameters
  */
 function requestPagination(){
     $("#pageList").empty();
     $.ajax({
         url : 'accessFunction.php', 
         type : 'POST', 
-        data : {fonction : 'getPeopleCount', language : language}, 
+        data : {fonction : 'getPeopleCount', language : language, term : searchTerm}, 
         dataType : 'text',
         success : function (result, statut){
             $("#pageList").html(addPagination(numberPerColumn, result));
@@ -42,7 +51,7 @@ function requestPagination(){
 }
 
 /**
- * 
+ * Show and/or reset the data using the actual parameters
  */
 function requestData(){
     console.log("Left first : " + first);
@@ -50,7 +59,7 @@ function requestData(){
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order, language : language},
+        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order, language : language, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
             console.log("Current page : " + currentPage);
@@ -62,7 +71,7 @@ function requestData(){
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language},
+        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
             $("#peopleListRight").html(codeHTML);
@@ -120,14 +129,19 @@ function changeAlphaOrder(){
     console.log("Changed to : " + order);
 }
 
+/**
+ * Change the language according to the parameters and update the view.
+ * @param {*} newLanguage 
+ */
 function changeLanguage(newLanguage){
     console.log("Changed language to :" + newLanguage);
     language = newLanguage;
     requestData();
     requestPagination();
 }
+
 /**
- * 
+ * Request the serveur to get all the language in the people list.
  */
 function getAllLanguage(){
     $.ajax({
@@ -140,4 +154,13 @@ function getAllLanguage(){
             $("#listLanguage").html(codeHTML);
         },
     });
+}
+
+function searchPeople(){
+    searchTerm = $("#inputPeopleResearch").val();
+    console.log("Search Term : " + searchTerm);
+
+    requestData();
+    requestPagination();
+
 }

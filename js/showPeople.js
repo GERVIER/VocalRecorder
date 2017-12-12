@@ -5,14 +5,12 @@ var peopleIdList = new Array(0);
  */
 function showPeopleInfo(id){
     console.log("Click on : " + id);
-    //$("#peopleInfo").empty();
     $.ajax({
         url : 'accessFunction.php', 
         type : 'POST', 
         data : {fonction : 'getAPeople', id : id}, 
         dataType : 'text',
         success : function (result, statut){
-            //$(result).appendTo("#peopleInfo");
             $("#peopleInfo").html(result);
             $("#addPeopleToListButton").attr('onclick', 'addPeopleToFinalList('+ id +')')
         },
@@ -22,6 +20,11 @@ function showPeopleInfo(id){
     });
 }
 
+/**
+ * Drag&Drop data transfert 
+ * @param {int} e 
+ * @param {*} id 
+ */
 function dragPeople(e, id){
     e.dataTransfer.setData('text/plain', id);
 }
