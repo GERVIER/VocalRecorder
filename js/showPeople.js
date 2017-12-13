@@ -37,17 +37,22 @@ function addPeopleToFinalList(id){
     if(id == -1){
         console.log("");
     }else{
-        if(typeof(id) == "string")
+        if(peopleIdList.length < 5){
+            if(typeof(id) == "string")
             id = parseInt(id);
 
-        image = $("#peopleImage").attr('src');
-        console.log("Add people id " + id + " picture " + image);
-        console.log();
-        if(peopleIdList.indexOf(id) == -1){
-            peopleIdList.push(id);
+            image = $("#peopleImage").attr('src');
+            console.log("Add people id " + id + " picture " + image);
+            console.log();
+            if(peopleIdList.indexOf(id) == -1){
+                peopleIdList.push(id);
+            }
+            console.log("New List : ");
+            updatePeopleList();
+        }else{
+            alert("Maximun size of people list reached ;(")
         }
-        console.log("New List : ");
-        updatePeopleList();
+
     }
 }
 
