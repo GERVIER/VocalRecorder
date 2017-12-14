@@ -15,7 +15,8 @@ $("#audio").on("canplaythrough", function(e){
 });
 
 $("#file").change(function(e){
-    var file = e.currentTarget.files[5];
+    console.log("File Charged");
+    var file = e.currentTarget.files[0];
    
     $("#filename").text(file.name);
     $("#filetype").text(file.type);
