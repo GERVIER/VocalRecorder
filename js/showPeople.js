@@ -1,4 +1,18 @@
-var peopleIdList = new Array(0);
+var peopleIdList;
+
+$(document).ready(function(){
+    peopleIdList = sessionStorage.getItem("idList");
+    peopleIdList = JSON.parse(peopleIdList);
+
+    if(peopleIdList != null){
+        updatePeopleList();
+    }else{
+        peopleIdList = new Array(0);
+    }
+});
+
+
+
 /**
  * Show the people information 
  * @param {*} id 
@@ -103,3 +117,16 @@ function updatePeopleList(){
         });
     }
 }
+
+function goToRecognition(){
+    if(peopleIdList.length < 2){
+        //TODO : Replace with a boostrap object
+        alert("You need to add at least two people to the list");
+    }
+    else{
+        sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
+        console.log("Data sended to the page");
+        window.location.href = "file.html";
+    }
+}
+

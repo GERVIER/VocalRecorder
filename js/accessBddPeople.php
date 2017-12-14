@@ -216,6 +216,43 @@
         }
     }
 
+    function getPeopleCarousel($dataSended){
+        if(isset($dataSended['id'])){
+            $id = $dataSended['id'];
+        }
+        else{
+            $id = [0];
+        }
+
+        $idList = "";
+        for($i = 0; $i<count($id); $i = $i+1){
+            if($i != (count($id)-1)){
+                $idList .= $id[$i].", ";
+            }
+            else{
+                $idList .= $id[$i]." ";
+            }
+            
+           
+        }
+        $bdd = accessBDD();
+
+        $request = $bdd->query('SELECT * FROM people WHERE id in ('.$idList.') ORDER BY name ');
+
+        while($data = $request->fetch()){
+            $id = $data['id'];
+            $name = $data['name'];
+            $picture = $data['picture'];
+            if($picture == "undefined"){
+                $picture = "res/img/people/empty.jpg";
+            }
+            
+            echo '<img id="carousel" class="cloud9-item rounded-circle" src="'.$picture.'" alt="'.$name.'">';
+
+        }
+    }
+
+
     function getAllLanguage(){
         $bdd = accessBDD();
         $request = $bdd->query('SELECT DISTINCT(language) FROM people ORDER BY language');
