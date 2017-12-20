@@ -8,38 +8,145 @@
     <link rel="stylesheet" href="utils/bootstrap4/css/bootstrap.min.css" />
     <link rel="stylesheet" href="utils/font-awesome/css/font-awesome.min.css" />
     <script src="utils/jquery.min.js"></script>
-    <script src="utils/bootstrap4/js/bootstrap.min.js"></script>
+    <script src="utils/bootstrap4/js/bootstrap.bundle.min.js"></script>
     <!-- Own script and css-->
     <link href="style.css" rel="stylesheet" />
     <title> Home - LIUM Vocal Recorder</title>
 </head>
 <body>
-    <!-- Three Colum interface selection of the people to use for the recognition -->
-    <div class="container-fluid">
-        <div class="row">
+    <!-- Three Colum interface for the selection of people to use for the recognition -->
+    <div class="container-fluid mt-3">
+        <header class="row">
+            <div class="col-lg-2">
+        
+            </div>
+            <div class="col-lg-8">
+                <h1 class="text-center">Interface for speaker recognition</h1>
+            </div>
+            <div class="col-lg-2">
+                <img src="res/logo/lium.png" class="float-right" style="width:100px"/>                      
+            </div>
+        </header>
+        <section class="row mt-3">
             <!-- First Column Used for the search input -->
-            <div class="col-sm showBox">
-                    <form>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                            <input class="form-control" type="email"  id="inputPeopleResearch" placeholder="Search a people">
-                            <button class="btn btn-primary" type="search" > <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+            <div class="col-sm ">
+                <!-- Research form-->
+                <nav class="mb-2">
+                    <div class="input-group">
+                        <input class="form-control rounded-right" type="text"  id="inputPeopleResearch" placeholder="Search a people">
+                        <div class="btn-group">
+                            <button class="btn btn-primary ml-1" type="search" onclick="searchPeople()"> <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                            
+                            <button id="filterButton" class="btn btn-primary dropdown-toggle" type="search" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </button>
+
+                            <!-- Filter DropDown Menu-->
+                            <div class="dropdown-menu" aria-labelledby="filterButton">
+                                <a class="dropdown-item" href="#" onClick="changeAlphaOrder()"><i id="logoAlphaOrder" class="fa fa-sort-alpha-desc" aria-hidden="true"></i> Alphebetical Order</a>
+                                <a id="languageMenu" class="dropdown-item" href="#" data-toggle="modal" data-target="#languageFilter">
+                                    <i class="fa fa-globe" aria-hidden="true"></i> Language
+                                </a>
+                                <a class="dropdown-item" href="#"><i class="fa fa-flask" aria-hidden="true"></i> Role</a>
+                            </div>
                         </div>
-                    </form>
+                    </div>
+                </nav>
+                <!-- List of people card --> 
+                <div id="peopleListLeft"class="container-fuild">
+
+                </div>
             </div>
 
             <!-- Second Column, used for the showing the second part of the search result -->
-            <div class="col-sm showBox">
-                $
+            <div class="col-sm border border-dark border-top-0 border-bottom-0 border-left-0">
+                <div id="peopleListRight"class="container-fuild">
+
+                </div>
             </div>
 
             <!-- Third Column, used for the preview and to show the information of the selected people -->
-            <div class="col-sm showBox">
-                $
+            <div class="col-sm border border-dark border-top-0 border-right-0 border-bottom-0">
+                <article class="container-fuild">
+                    <!-- Three colum, one per iamge with the center one beeing the one showing the information --> 
+                    <div id="peopleInfo">
+                        <div class="row mb-2">
+                            <div class="col-3 d-flex flex-column justify-content-center">
+                                <img id="peopleImage" src="res/img/people/empty.jpg" alt="" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                         
+                            </div>
+                            <div class="col d-flex flex-column justify-content-center">
+                                <h3 id="peopleName" class="text-center">Personnal Information</h3>
+                            </div>
+                            <div class="col-3 d-flex flex-column justify-content-center">
+                            </div>
+                        </div>
+
+                        <div class="row mx-1">
+                            <p class="mb-0">
+                                <b>Please select a person to view their information</b>
+                            </p>
+                        </div>
+                    </div>
+                     <!-- Button add  --> 
+                    <div class="row mx-1 mt-5 d-flex flex-row justify-content-center">
+                        <button id="addPeopleToListButton" onclick="addPeopleToFinalList(-1)" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Add to list </button>
+                    </div>
+
+                    <!-- List of the selected people  --> 
+                    <div class="row mt-5 mb-2">
+                        <div class="col">
+                            <!-- Container of the list -->
+                            <div class="container-fluid">
+                                <div id="finalPeopleList" class="row mb-2">
+                                    <p>Add someone to the list, or drag it here !</p>
+                                </div>                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button to validate the list -->
+                    <div class="row mb-2">
+                        <div class="col d-flex flex-row justify-content-center">
+                            <button class="btn btn-success" onClick="goToRecognition()"><i class="fa fa-check" aria-hidden="true"></i> Validate Selection </button>
+                        </div>
+                    </div>
+               </article> 
+            </div>
+        </section>
+
+        <footer class="row">
+            <nav aria-label="Page navigation" class="ml-3">
+                    <ul id="pageList" class="pagination">
+
+                    </ul>
+            </nav>
+        </footer>
+
+        <!-- Modal (popup) for the language filter-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="languageFilter">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Choose the language to show : </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="listLanguage" class="list-group">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="changeLanguage('all')">Reset</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-
+    <script src="js/searchPeople.js"></script>
+    <script src="js/showPeople.js"></script>
 </body>
 </html>

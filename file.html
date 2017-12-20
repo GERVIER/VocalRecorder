@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Result</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="utils/bootstrap4/css/bootstrap.min.css" />    
+    <!-- Font awesome css -->
+    <link rel="stylesheet" href="utils/font-awesome/css/font-awesome.min.css" />
+
+    <!-- Design CSS -->
+    <link rel="stylesheet" href="css/result.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/file.css">
+
+    <!-- Utils JS Import -->
+    <script src="utils/bootstrap4/js/bootstrap.bundle.min.js"></script>
+    <script src="utils/jquery.min.js"></script>
+    <script src="utils/jquery.reflection.js"></script>
+    <script src="utils//jquery.cloud9carousel.js"></script>
+    <script src="utils/moment.js"></script>
+  </head>
+      
+  <body>
+    <div class="container-fluid">
+      <div id="header" class="row">
+        <div class="col-lg-2">
+          <a href="index.html">
+            <button type="submit"  class="btn btn-primary">
+              <i class="fa fa-arrow-left" aria-hidden="true"></i> Change dataset
+            </button>
+          </a>
+        </div>
+
+        <div class="col-lg-8">
+          <h1>Interface for speaker recognition</h1> 
+        </div>
+
+        <div class="col-lg-2">
+          <a href="http://www-lium.univ-lemans.fr/fr/content/bienvenue"><img id ="logo" class="float-right" src="res/logo/lium.png" alt="LIUM"/></a>
+        </div>
+      </div>
+
+      <div id="content" class="row mx-1">    
+        <div id="fileZone" class="col-lg-4">
+          <div class="col-lg-12">
+            <ul>
+              <li><a class="active">File</a></li>
+              <li><a href="microphone.html">Audio data stream</a></li>
+            </ul>
+            <div>
+              <input type="file" id="file" />
+              
+              <audio id="audio"></audio>
+              <br>
+              <br>
+              <p>
+                <label>File Name :</label>
+                <span id="filename"></span>
+              </p>
+              <p>
+                <label>File Type:</label>
+                <span id="filetype"></span>
+              </p>
+              
+              <p>
+                <label>File Size:</label>
+                <span id="filesize"></span>
+              </p>
+              
+              <p>
+                <label>Song Duration:</label>
+                <span id="duration"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div id="carouselZone"class="col-lg-8">
+            <div class="wrap">
+              <div id="showcase" class="noselect">
+              </div>
+              <footer>
+                <p id="item-title">&nbsp;</p>
+                <div id="nav" class="noselect">
+                  <button class="left">
+                    ←
+                  </button>
+                  <button class="right">
+                    →
+                  </button>
+                </div>
+              </footer>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Additional JS that nned to be loaded at the end -->
+    <script src="js/getCarousel.js"></script>
+    <script src="js/file.js"></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/common.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <div id="showcase" class="noselect">
+      <img class="cloud9-item" src="images/browsers/firefox.png" alt="Firefox">
+      <img class="cloud9-item" src="images/browsers/wyzo.png" alt="Wyzo">
+      <img class="cloud9-item" src="images/browsers/opera.png" alt="Opera">
+      <img class="cloud9-item" src="images/browsers/chrome.png" alt="Chrome">
+      <img class="cloud9-item" src="images/browsers/iexplore.png" alt="Internet Explorer">
+      <img class="cloud9-item" src="images/browsers/safari.png" alt="Safari">
+    </div>
+    <footer>
+      <p id="item-title">&nbsp;</p>
+      <div id="nav" class="noselect">
+        <button class="left">
+          ←
+        </button>
+        <button class="right">
+          →
+        </button>
+      </div>
+    </footer>
+  </div>
+  <script src="js/lib/jquery.js"></script>
+  <script src="js/lib/jquery.reflection.js"></script>
+  <script src="js/lib/jquery.cloud9carousel.js"></script>
+  <script>
+    $(function() {
+      var showcase = $("#showcase"), title = $('#item-title')
+
+      showcase.Cloud9Carousel( {
+        yOrigin: 42,
+        yRadius: 48,
+        mirror: {
+          gap: 12,
+          height: 0.2
+        },
+        buttonLeft: $("#nav > .left"),
+        buttonRight: $("#nav > .right"),
+        autoPlay: 1,
+        bringToFront: true,
+        onRendered: rendered,
+        onLoaded: function() {
+          showcase.css( 'visibility', 'visible' )
+          showcase.css( 'display', 'none' )
+          showcase.fadeIn( 1500 )
+        }
+      } )
+
+      function rendered( carousel ) {
+        title.text( carousel.nearestItem().element.alt )
+
+        // Fade in based on proximity of the item
+        var c = Math.cos((carousel.floatIndex() % 1) * 2 * Math.PI)
+        title.css('opacity', 0.5 + (0.5 * c))
+      }
+
+      //
+      // Simulate physical button click effect
+      //
+      $('#nav > button').click( function( e ) {
+        var b = $(e.target).addClass( 'down' )
+        setTimeout( function() { b.removeClass( 'down' ) }, 80 )
+      } )
+
+      $(document).keydown( function( e ) {
+        //
+        // More codes: http://www.javascripter.net/faq/keycodes.htm
+        //
+        switch( e.keyCode ) {
+          /* left arrow */
+          case 37:
+            $('#nav > .left').click()
+            break
+
+          /* right arrow */
+          case 39:
+            $('#nav > .right').click()
+        }
+      } )
+    })
+  </script>
+</body>
+</html>

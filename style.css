@@ -1,3 +1,37 @@
+/* --Small PC Screen-- */
+/* ------------------- */
+@media screen and (max-width: 990px){
+    .peopleImage{
+        display: none !important;
+    }
+}
+
+/* --Mobile Phone-- */
+/* ---------------- */
+@media screen and (max-width: 576px){
+    .peopleImage{
+        display: block !important;
+    }
+}
+
+/* --PC Screen-- */
+/* ------------- */
+
+.peopleImage{
+    width: 75px;
+    height:75px;
+}
+
+.peopleCard{
+    cursor: pointer;
+    max-height: 115px !important;   
+    transition-duration: 0.2s;
+}
+
+.peopleCard:hover{
+    background-color: #b9b9b9;
+}
+
 .showBox{
     border: 1px solid black;
 }
