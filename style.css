@@ -1,3 +1,9 @@
+/* -- CUSTOM FONT -- */
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+
 /* --Small PC Screen-- */
 /* ------------------- */
 @media screen and (max-width: 990px){
@@ -16,6 +22,13 @@
 
 /* --PC Screen-- */
 /* ------------- */
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+h1{
+    font-family: 'Raleway', sans-serif !important;
+}
 
 .peopleImage{
     width: 75px;
@@ -29,9 +42,24 @@
 }
 
 .peopleCard:hover{
-    background-color: #b9b9b9;
+    background-color: #c2c2c2;
 }
 
 .showBox{
     border: 1px solid black;
+}
+
+#finalPeopleList{
+
+    border: 1px dashed #c2c2c2;
+    min-width: 100%;
+    border-radius: 5px;
+    background-color: white;
+    min-height: 7em;
+    padding: 1em;
+}
+
+.text-no-people{
+    margin: auto;
+    font-size: 2em;
 }

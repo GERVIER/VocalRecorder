@@ -15,8 +15,9 @@ $(document).ready(function (){
     });
 
     $("#finalPeopleList").bind("drop", function(e){
+        e.preventDefault();
         var id = e.dataTransfer.getData('text/plain');
-        console.log(id);      
+        console.log(id);
         addPeopleToFinalList(id);
         showPeopleInfo(id);
     });
@@ -117,11 +118,11 @@ function changePage(page){
 function changeAlphaOrder(){
     if(order == 'asc'){
         order = 'desc';
-        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-asc");
+        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-up");
     }
     else{
         order = 'asc';
-        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-desc");
+        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-down");
     }
     
     requestData();

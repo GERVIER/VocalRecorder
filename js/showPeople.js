@@ -4,11 +4,10 @@ $(document).ready(function(){
     peopleIdList = sessionStorage.getItem("idList");
     peopleIdList = JSON.parse(peopleIdList);
 
-    if(peopleIdList != null){
-        updatePeopleList();
-    }else{
+    if(peopleIdList == null)
         peopleIdList = new Array(0);
-    }
+    
+    updatePeopleList();
 });
 
 
@@ -40,7 +39,7 @@ function showPeopleInfo(id){
  * @param {*} id 
  */
 function dragPeople(e, id){
-    e.dataTransfer.setData('text/plain', id);
+    e.dataTransfer.setData('text/plain', id + "");
 }
 
 /**
@@ -63,6 +62,7 @@ function addPeopleToFinalList(id){
             }
             console.log("New List : ");
             updatePeopleList();
+            sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
         }else{
             alert("Maximun size of people list reached ;(")
         }
@@ -87,6 +87,7 @@ function removePeople(id){
         peopleIdList.splice(i, 1);
         console.log("New List : ");
         updatePeopleList();
+        sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
     }
     console.log("Not found");
 }
@@ -100,7 +101,7 @@ function updatePeopleList(){
     }
 
     if(peopleIdList.length == 0){
-        $("#finalPeopleList").html("<p>Add someone to the list, or drag it here !</p>");
+        $("#finalPeopleList").html("<p class=\"text-no-people\"> <i class=\"fas fa-archive\"></i> Add someone to the list, or drag it here !</p>");
     }else{
         $.ajax({
             url : 'accessFunction.php', 
