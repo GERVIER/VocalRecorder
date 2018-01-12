@@ -75,7 +75,12 @@ function addPeopleToFinalList(id){
  * Remove of people of the list
  * @param {*} id 
  */
-function removePeople(id){
+function removePeople(ele, id){
+    var divEle = ele.parentElement.parentElement;
+    var animationEvent = whichAnimationEvent();
+    $(divEle).addClass("removingAnimation");
+    console.log("Click on : " + divEle);
+
     var pos = -1;
     for(i=0; i<peopleIdList.length; i++){
         if(peopleIdList[i] == id){
@@ -83,10 +88,15 @@ function removePeople(id){
             break;
         }
     }
+
     if(pos != -1){
         peopleIdList.splice(i, 1);
         console.log("New List : ");
-        updatePeopleList();
+        $(divEle).one(animationEvent,
+            function(event) {
+                console.log(event);
+                updatePeopleList();
+            });
         sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
     }
     console.log("Not found");
@@ -131,3 +141,21 @@ function goToRecognition(){
     }
 }
 
+function whichAnimationEvent(){
+    var t,
+        el = document.createElement("fakeelement");
+  
+    var animations = {
+      "animation"      : "animationend",
+      "OAnimation"     : "oAnimationEnd",
+      "MozAnimation"   : "animationend",
+      "WebkitAnimation": "webkitAnimationEnd"
+    }
+  
+    for (t in animations){
+      if (el.style[t] !== undefined){
+        return animations[t];
+      }
+    }
+}
+  

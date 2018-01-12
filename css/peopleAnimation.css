@@ -1,0 +1,10 @@
+@keyframes removePeople{
+    100% {
+        transform: scale(0,0);
+        opacity: 0;
+    }
+}
+
+.removingAnimation{
+    animation : removePeople 0.5s forwards;
+}

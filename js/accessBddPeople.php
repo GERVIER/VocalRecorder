@@ -208,7 +208,7 @@
             echo '<div class="col-2 p-0 mx-1">
                     <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center" data-toggle="tooltip" data-html="true" title="'.$name.'"/>
                     <p style="text-align:end;margin-top: -1em">
-                        <button onclick="removePeople('.$id.')" type="button" class="close" aria-label="Close"> 
+                        <button onclick="removePeople(this, '.$id.')" type="button" class="close" aria-label="Close"> 
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </p>
