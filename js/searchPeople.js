@@ -163,6 +163,9 @@ function getAllLanguage(){
     });
 }
 
+/**
+ * Request the serveur to get all the role in the people list.
+ */
 function getAllRole(){
     $.ajax({
         url : 'accessFunction.php',
@@ -175,6 +178,7 @@ function getAllRole(){
     });
 }
 
+//Search someone using the search bar
 function searchPeople(){
     searchTerm = $("#inputPeopleResearch").val();
     console.log("Search Term : " + searchTerm);

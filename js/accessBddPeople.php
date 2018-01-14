@@ -54,6 +54,16 @@
         return $requestText;
     }
 
+    /**
+     * Return the number of people
+     * $dataSended named array that contain all the parameters needed for the request : 
+     *  first : first element to display
+     *  numberPerColumn : how many element to show per Column
+     *  order : arc or desc, indicate in witch order display the list
+     *  language: language to display or all for displaying all language
+     *  role : role to display or none for displaying all
+     *  term : name filter
+     */
     function getPeopleCount($dataSended){
         $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
         $term =             (isset($dataSended['term']))            ?   $dataSended['term']             :"";
@@ -71,6 +81,16 @@
         $request->closeCursor();
     }
 
+    /**
+     * Return the list of people
+     * $dataSended named array that contain all the parameters needed for the request : 
+     *  first : first element to display
+     *  numberPerColumn : how many element to show per Column
+     *  order : arc or desc, indicate in witch order display the list
+     *  language: language to display or all for displaying all language
+     *  role : role to display or none for displaying all
+     *  term : name filter
+     */
     function getPeopleAsList($dataSended){
 
         $first =            (isset($dataSended['first']))           ?   $dataSended['first']            :0;
@@ -94,6 +114,10 @@
         $request->closeCursor();
     }
 
+    /**
+     * Return a list of people in a HTML format.
+     * $request : the result of an PDO SQL request. 
+     */
     function echoListOfPeople($request){
         while($data =$request->fetch()){
             $id = $data['id'];
@@ -138,6 +162,9 @@
         $request->closeCursor();
     }
 
+    /**
+     * Return all the information of the chosen people
+     */
     function getAPeople($dataSended){
         if(isset($dataSended['id'])){
             $id = $dataSended['id'];
@@ -196,7 +223,10 @@
 
         $request->closeCursor();
     }
-
+    
+    /**
+     * Return the HTML for the list of chosen people
+     */
     function getPeopleFinalList($dataSended){
         if(isset($dataSended['id'])){
             $id = $dataSended['id'];
@@ -240,6 +270,9 @@
         }
     }
 
+    /**
+     * Return the HTML needed to show the carouel of chosen people
+     */
     function getPeopleCarousel($dataSended){
         if(isset($dataSended['id'])){
             $id = $dataSended['id'];
@@ -272,11 +305,13 @@
             }
             
             echo '<img id="carousel" class="cloud9-item rounded-circle" src="'.$picture.'" alt="'.$name.'">';
-
         }
     }
 
 
+    /**
+     * Return all the language on the people DB
+     */
     function getAllLanguage(){
         $bdd = accessBDD();
         $request = $bdd->query('SELECT DISTINCT(language) FROM people ORDER BY language');
@@ -288,6 +323,9 @@
         $request->closeCursor();
     }
 
+    /**
+     * Return all the role on the people DB
+     */
     function getAllRole(){
         $bdd = accessBDD();
         $request = $bdd->query('SELECT DISTINCT(role) FROM people ORDER BY role');

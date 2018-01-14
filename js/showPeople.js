@@ -174,6 +174,10 @@ function updatePeopleList(){
     }
 }
 
+/**
+ * Switch to the recognition part of the app or show a message if not enought people
+ * have been added to the list
+ */
 function goToRecognition(){
     if(peopleIdList.length < 2){
         messageText.html(" <i class=\"fas fa-info-circle\"></i> You need to add at least two people to the list");
@@ -188,6 +192,9 @@ function goToRecognition(){
     }
 }
 
+/**
+ * Used to get the animation event used by the browser.
+ */
 function whichAnimationEvent(){
     var t,
         el = document.createElement("fakeelement");
@@ -206,6 +213,9 @@ function whichAnimationEvent(){
     }
 }
 
+/**
+ * Purge the list of people
+ */
 function eraseList(){
     $(".peopleFinalListImage").addClass("removingAnimation");
     animFollower = $(".peopleFinalListImage")[0];
