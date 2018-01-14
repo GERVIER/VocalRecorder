@@ -10,6 +10,50 @@
         return $bdd;
     }
 
+    function applyRequestFilter($dataSended){
+        $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
+        $role =             (isset($dataSended['role']))            ?   $dataSended['role']             :"none";
+        $term =             (isset($dataSended['term']))            ?   $dataSended['term']             :"";
+
+        $nbFilter = 0;
+        $requestText = "";
+        if($language != "all")
+            $nbFilter += 1;
+        if($term != "")
+            $nbFilter += 1;
+        if($role != "none")
+            $nbFilter += 1;
+
+        if($nbFilter > 0){
+            $requestText .= ' WHERE ';
+            $nbFilter -= 1;
+        }
+
+        if($language != "all"){
+            $requestText .= ' language LIKE \''.$language.'\' ';
+
+            if($nbFilter > 0){
+                $requestText .= ' AND ';
+                $nbFilter -= 1;
+            }
+        }
+    
+        if($term != ""){
+            $requestText .= ' name LIKE \'%'.$term.'%\' ';
+
+            if($nbFilter > 0){
+                $requestText .= ' AND ';
+                $nbFilter -= 1;
+            }
+        }
+    
+        if($role != "none"){
+            $requestText .= ' role LIKE \''.$role.'\' ';
+        }
+
+        return $requestText;
+    }
+
     function getPeopleCount($dataSended){
         $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
         $term =             (isset($dataSended['term']))            ?   $dataSended['term']             :"";
@@ -17,17 +61,7 @@
         $bdd = accessBDD();
         $requestText = 'SELECT count(*) as numberPeople FROM people';
 
-        if($language != "all"){
-            $requestText .= ' WHERE language LIKE \''.$language.'\' ';
-
-            if($term != ""){
-                $requestText .= ' AND name LIKE \'%'.$term.'%\'';
-            }
-        }else{
-            if($term != ""){
-                $requestText .= ' WHERE name LIKE \'%'.$term.'%\' ';
-            }
-        }
+        $requestText .= applyRequestFilter($dataSended);
 
         $request = $bdd->query($requestText);
         $data = $request->fetch();
@@ -42,25 +76,11 @@
         $first =            (isset($dataSended['first']))           ?   $dataSended['first']            :0;
         $numberPerColumn =  (isset($dataSended['numberPerColumn'])) ?   $dataSended['numberPerColumn']  :6;
         $order =            (isset($dataSended['order']))           ?   $dataSended['order']            :"asc";
-        $language =         (isset($dataSended['language']))        ?   $dataSended['language']         :"all";
-        $term =             (isset($dataSended['term']))            ?   $dataSended['term']             :"";
+
 
         $bdd = accessBDD();
-        
         $requestText = 'SELECT * FROM people ';
-
-        if($language != "all"){
-            $requestText .= ' WHERE language LIKE \''.$language.'\' ';
-
-            if($term != ""){
-                $requestText .= ' AND name LIKE \'%'.$term.'%\'';
-            }
-        }else{
-            if($term != ""){
-                $requestText .= ' WHERE name LIKE \'%'.$term.'%\' ';
-            }
-        }
-
+        $requestText .= applyRequestFilter($dataSended);
         $requestText .= ' ORDER by name ';
 
         if($order == "desc"){
@@ -70,7 +90,7 @@
         $requestText .= ' LIMIT '.$numberPerColumn.' OFFSET '. $first.' ';
         $request = $bdd->query($requestText);
         echo echoListOfPeople($request);
-
+        //echo $requestText;
         $request->closeCursor();
     }
 
@@ -106,6 +126,10 @@
                             <p class="mb-0"><b>'.$name.'</b></p>
                             <p class="mb-0">Language : '.$language.'</p>
                             <p class="mb-0">'.$age.' year old</p>
+                        </div>
+
+                        <div class="col-auto d-flex flex-column justify-content-center pl-3">
+                            <button class="btn btn-secondary" onClick="addPeopleToFinalList('.$id.')"> <i class="fas fa-plus" aria-hidden="true"></i> </button>
                         </div>
                     </div>
             ';
@@ -205,7 +229,7 @@
                 $picture = "res/img/people/empty.jpg";
             }
             
-            echo '<div class="col-2 p-0 mx-1">
+            echo '<div class="col-2 p-0 mx-1 peopleFinalListImage">
                     <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center" data-toggle="tooltip" data-html="true" title="'.$name.'"/>
                     <p style="text-align:end;margin-top: -1em">
                         <button onclick="removePeople(this, '.$id.')" type="button" class="close" aria-label="Close"> 
@@ -259,6 +283,17 @@
 
         while($data = $request->fetch()){
             echo '<a href="#" class="list-group-item list-group-item-action" data-dismiss="modal" onClick="changeLanguage(\''.$data['language'].'\')">'.$data['language'].'</a>';
+        }
+
+        $request->closeCursor();
+    }
+
+    function getAllRole(){
+        $bdd = accessBDD();
+        $request = $bdd->query('SELECT DISTINCT(role) FROM people ORDER BY role');
+
+        while($data = $request->fetch()){
+            echo '<a href="#" class="list-group-item list-group-item-action" data-dismiss="modal" onClick="changeRole(\''.$data['role'].'\')">'.$data['role'].'</a>';
         }
 
         $request->closeCursor();

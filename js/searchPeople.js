@@ -1,35 +1,28 @@
-$(document).ready(function (){
-    $.event.addProp('dataTransfer');
-    getAllLanguage()
-    requestData();
-    requestPagination();
-
-
-    $("#inputPeopleResearch").bind("keypress", function(e){
-        if(e.keyCode == 13)
-            searchPeople();
-    });
-
-    $("#finalPeopleList").bind("dragover", function(e){
-        e.preventDefault();
-    });
-
-    $("#finalPeopleList").bind("drop", function(e){
-        e.preventDefault();
-        var id = e.dataTransfer.getData('text/plain');
-        console.log(id);
-        addPeopleToFinalList(id);
-        showPeopleInfo(id);
-    });
-
-});
-
+var filterList;
 var currentPage = 1;
 var first = 0;
 var numberPerColumn = 6;
 var order = "asc";
 var language = "all";
+var role = "none";
 var searchTerm = "";
+
+$(document).ready(function (){
+    $.event.addProp('dataTransfer');
+    getAllLanguage()
+    getAllRole();
+    requestData();
+    requestPagination();
+
+    filterList = $("#filterList");
+
+    $("#inputPeopleResearch").bind("keypress", function(e){
+        if(e.keyCode == 13)
+            searchPeople();
+    });
+});
+
+
 
 /**
  * Show and/or reset the pagination with the actual parameters
@@ -56,11 +49,10 @@ function requestPagination(){
  */
 function requestData(){
     console.log("Left first : " + first);
-
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order, language : language, term : searchTerm},
+        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order, language : language, role : role, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
             console.log("Current page : " + currentPage);
@@ -72,7 +64,7 @@ function requestData(){
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language, term : searchTerm},
+        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language, role : role, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
             $("#peopleListRight").html(codeHTML);
@@ -135,8 +127,23 @@ function changeAlphaOrder(){
  * @param {*} newLanguage 
  */
 function changeLanguage(newLanguage){
+    $(".filterLanguage").remove();
     console.log("Changed language to :" + newLanguage);
     language = newLanguage;
+    if(language != "all"){
+        filterList.append("<span class=\"filterElement filterLanguage\" onClick=\"changeLanguage('all')\"> <i class=\"fas fa-minus-circle\"></i> Language : "+ language +" </span>")
+    }
+    requestData();
+    requestPagination();
+}
+
+function changeRole(newRole){
+    $(".filterRole").remove();
+    console.log("Changed role to :" + newRole);
+    role = newRole;
+    if(role != "none"){
+        filterList.append("<span class=\"filterElement filterRole\" onClick=\"changeRole('none')\"> <i class=\"fas fa-minus-circle\"></i> Role : "+ role +" </span>")
+    }
     requestData();
     requestPagination();
 }
@@ -151,8 +158,19 @@ function getAllLanguage(){
         data: {fonction: 'getAllLanguage'},
         dataType : 'html',
         success : function (codeHTML, statut){
-            console.log("Current page : " + currentPage);
             $("#listLanguage").html(codeHTML);
+        },
+    });
+}
+
+function getAllRole(){
+    $.ajax({
+        url : 'accessFunction.php',
+        type : 'POST',
+        data: {fonction: 'getAllRole'},
+        dataType : 'html',
+        success : function (codeHTML, statut){
+            $("#listRole").html(codeHTML);
         },
     });
 }

@@ -30,6 +30,14 @@ h1{
     font-family: 'Raleway', sans-serif !important;
 }
 
+.btn:hover{
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.rightColumn{
+    border-left: 1px dashed #868e96;
+}
+
 .peopleImage{
     width: 75px;
     height:75px;
@@ -43,23 +51,70 @@ h1{
 
 .peopleCard:hover{
     background-color: #c2c2c2;
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
 }
 
 .showBox{
     border: 1px solid black;
 }
 
-#finalPeopleList{
 
+
+#finalPeopleList{
     border: 1px dashed #c2c2c2;
     min-width: 100%;
     border-radius: 5px;
-    background-color: white;
     min-height: 7em;
     padding: 1em;
 }
 
-.text-no-people{
+.whenDragOver{
+    border: 2px solid #6dd37e !important;
+}
+
+.boxErrorMessage{
+    min-width: 100%;
+    border-radius: 5px;
+    padding: 1em;
+    min-height: 4em;
+    border: 1px solid #ffffff !important;
+    background-color: #cc2c2c
+}
+
+.boxInfoMessage{
+    min-width: 100%;
+    border-radius: 5px;
+    padding: 1em;
+    min-height: 4em;
+    border: 1px solid #ffffff !important;
+    background-color: #1b8f20
+}
+
+#textMessage{
+    color : #ffffff;
+    margin: auto;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.filterElement{
+    border-radius: 5px;
+    margin-right: 5px; 
+    background-color: #868e96;
+    padding: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 75%
+}
+
+.filterElement:hover{
+    background-color: #6c747c;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+}
+
+#textNoPeople{
     margin: auto;
     font-size: 2em;
+
 }
+

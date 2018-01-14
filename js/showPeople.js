@@ -1,6 +1,12 @@
 var peopleIdList;
-
+var counter = 0;
+var messageBox;
+var messageText;
 $(document).ready(function(){
+    messageBox = $("#boxMessage");
+    messageText = $("#textMessage");
+
+    messageBox.css("display", "none");
     peopleIdList = sessionStorage.getItem("idList");
     peopleIdList = JSON.parse(peopleIdList);
 
@@ -8,9 +14,44 @@ $(document).ready(function(){
         peopleIdList = new Array(0);
     
     updatePeopleList();
+
+    $("#finalPeopleList").bind({
+        "dragover": function(e){
+            e.preventDefault();
+        },
+
+        "drop": function(e){
+            e.preventDefault();
+            counter--;
+            $("#finalPeopleList").removeClass("whenDragOver");
+            var id = e.dataTransfer.getData('text/plain');
+            console.log("ID DRAGGED : " + id + " of type : " + typeof(id));
+
+            id = parseInt(id);
+            
+            if(!isNaN(id)){
+                addPeopleToFinalList(id);
+                showPeopleInfo(id);
+            }
+        },
+
+        'dragenter': function(e) {
+            counter++;
+            $("#finalPeopleList").addClass("whenDragOver");
+        }, 
+
+        'dragleave': function(e) {
+            counter--;
+            if (counter === 0) { 
+                $("#finalPeopleList").removeClass("whenDragOver");
+            }
+        }, 
+    });
+
+
+    
+    
 });
-
-
 
 /**
  * Show the people information 
@@ -52,11 +93,11 @@ function addPeopleToFinalList(id){
     }else{
         if(peopleIdList.length < 5){
             if(typeof(id) == "string")
-            id = parseInt(id);
+                id = parseInt(id);
 
             image = $("#peopleImage").attr('src');
             console.log("Add people id " + id + " picture " + image);
-            console.log();
+            console.log("");
             if(peopleIdList.indexOf(id) == -1){
                 peopleIdList.push(id);
             }
@@ -64,7 +105,10 @@ function addPeopleToFinalList(id){
             updatePeopleList();
             sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
         }else{
-            alert("Maximun size of people list reached ;(")
+            messageText.html(" <i class=\"fas fa-exclamation-triangle\"></i> Maximun size of people list reached ;(");
+            messageBox.removeClass("boxInfoMessage");
+            messageBox.addClass("boxErrorMessage");
+            messageBox.fadeIn(200);
         }
 
     }
@@ -94,12 +138,13 @@ function removePeople(ele, id){
         console.log("New List : ");
         $(divEle).one(animationEvent,
             function(event) {
-                console.log(event);
                 updatePeopleList();
             });
         sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
+    }else{
+        console.log("Not found");
     }
-    console.log("Not found");
+   
 }
 
 /**
@@ -111,7 +156,7 @@ function updatePeopleList(){
     }
 
     if(peopleIdList.length == 0){
-        $("#finalPeopleList").html("<p class=\"text-no-people\"> <i class=\"fas fa-archive\"></i> Add someone to the list, or drag it here !</p>");
+        $("#finalPeopleList").html("<p id=\"textNoPeople\"> <i class=\"fas fa-archive\"></i> Add someone to the list, or drag it here !</p>");
     }else{
         $.ajax({
             url : 'accessFunction.php', 
@@ -131,8 +176,10 @@ function updatePeopleList(){
 
 function goToRecognition(){
     if(peopleIdList.length < 2){
-        //TODO : Replace with a boostrap object
-        alert("You need to add at least two people to the list");
+        messageText.html(" <i class=\"fas fa-info-circle\"></i> You need to add at least two people to the list");
+        messageBox.removeClass("boxErrorMessage");
+        messageBox.addClass("boxInfoMessage");
+        messageBox.fadeIn(200);
     }
     else{
         sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
@@ -158,4 +205,15 @@ function whichAnimationEvent(){
       }
     }
 }
-  
+
+function eraseList(){
+    $(".peopleFinalListImage").addClass("removingAnimation");
+    animFollower = $(".peopleFinalListImage")[0];
+    var animationEvent = whichAnimationEvent();
+    $(animFollower).one(animationEvent, function(event){
+        updatePeopleList();
+    })
+    peopleIdList = new Array(0);
+    sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
+    
+}
