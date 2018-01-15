@@ -182,8 +182,18 @@ function getAllRole(){
 function searchPeople(){
     searchTerm = $("#inputPeopleResearch").val();
     console.log("Search Term : " + searchTerm);
+    $(".filterTerm").remove();
+
+    if(searchTerm != ""){
+        filterList.append("<span class=\"filterElement filterTerm\" onClick=\"resetSearchFiedl()\"> <i class=\"fas fa-minus-circle\"></i> Search : "+ searchTerm +" </span>")
+    }
 
     requestData();
     requestPagination();
 
+}
+
+function resetSearchFiedl(){
+    $("#inputPeopleResearch").val("");
+    searchPeople();
 }

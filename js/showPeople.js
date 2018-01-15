@@ -104,6 +104,10 @@ function addPeopleToFinalList(id){
             console.log("New List : ");
             updatePeopleList();
             sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
+
+            if(peopleIdList.length >= 2)
+                if(messageBox.hasClass("boxInfoMessage"))
+                    messageBox.fadeOut();
         }else{
             messageText.html(" <i class=\"fas fa-exclamation-triangle\"></i> Maximun size of people list reached ;(");
             messageBox.removeClass("boxInfoMessage");
@@ -225,5 +229,6 @@ function eraseList(){
     })
     peopleIdList = new Array(0);
     sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
-    
+    if(messageBox.hasClass("boxErrorMessage"))
+    messageBox.fadeOut();
 }

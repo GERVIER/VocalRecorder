@@ -17,42 +17,31 @@
 </head>
 <body>
     <!-- Three Colum interface for the selection of people to use for the recognition -->
-    <div class="container-fluid mt-3">
-        <header class="row">
-            <div class="col-lg-2">
-        
-            </div>
-            <div class="col-lg-8">
-                <h1 class="text-center">Interface for speaker recognition</h1>
-            </div>
-            <div class="col-lg-2">
-                <img src="res/logo/lium.png" class="float-right" style="width:100px"/>                      
-            </div>
-        </header>
-        <section class="row mt-3">
-            <!-- First Column Used for the search input -->
-            <div class="col-sm ">
+    <div class="container-fluid">
+        <header class="row pt-3 pb-3 sticky-top">
+            <div class="col-lg-4">
                 <!-- Research form-->
-                <nav class="mb-2">
+                <nav class="mt-2">
                     <div class="input-group">
-                        <input class="form-control rounded-right" type="text"  id="inputPeopleResearch" placeholder="Search a people">
+                        <input class="form-control" type="text"  id="inputPeopleResearch" placeholder="Search a people">
                         <div class="btn-group">
-                            <button class="btn btn-primary ml-1" type="search" onclick="searchPeople()"> <i class="fas fa-search" aria-hidden="true"></i> Search</button>
-                            
-                            <button id="filterButton" class="btn btn-primary dropdown-toggle" type="search" 
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                <i class="fas fa-filter" aria-hidden="true"></i>
-                            </button>
+                            <button class="btn btn-light btn-custom-flat ml-1" type="search" onclick="searchPeople()"> <i class="fas fa-search" aria-hidden="true"></i> Search</button>
+                            <div class="btn-group">
+                                <button id="filterButton" class="btn btn-light btn-custom-flat dropdown-toggle" type="search" 
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                    <i class="fas fa-filter" aria-hidden="true"></i>
+                                </button>
 
-                            <!-- Filter DropDown Menu-->
-                            <div class="dropdown-menu" aria-labelledby="filterButton">
-                                <a class="dropdown-item" href="#" onClick="changeAlphaOrder()"><i id="logoAlphaOrder" class="fas fa-sort-alpha-down" aria-hidden="true"></i> Alphebetical Order</a>
-                                <a id="languageMenu" class="dropdown-item" href="#" data-toggle="modal" data-target="#languageFilter">
-                                    <i class="fas fa-language" aria-hidden="true"></i> Language
-                                </a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#roleFilter">
-                                    <i class="fas fa-flask" aria-hidden="true"></i> Role
-                                </a>
+                                <!-- Filter DropDown Menu-->
+                                <div class="dropdown-menu" aria-labelledby="filterButton">
+                                    <a class="dropdown-item" href="#" onClick="changeAlphaOrder()"><i id="logoAlphaOrder" class="fas fa-sort-alpha-down" aria-hidden="true"></i> Alphebetical Order</a>
+                                    <a id="languageMenu" class="dropdown-item" href="#" data-toggle="modal" data-target="#languageFilter">
+                                        <i class="fas fa-language" aria-hidden="true"></i> Language
+                                    </a>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#roleFilter">
+                                        <i class="fas fa-flask" aria-hidden="true"></i> Role
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,6 +50,17 @@
 
                     </div>
                 </nav>
+            </div>
+            <div class="col-lg-4">
+                <h1 class="text-center">Interface for speaker recognition</h1>
+            </div>
+            <div class="col-lg-4">
+                <img src="res/logo/lium.png" class="float-right" style="width:100px"/>                      
+            </div>
+        </header>
+        <section class="row mt-3">
+            <!-- First Column Used for the search input -->
+            <div class="col-sm ">
                 <!-- List of people card --> 
                 <div id="peopleListLeft"class="container-fuild">
 
@@ -98,7 +98,7 @@
                     </div>
                      <!-- Button add  --> 
                     <div class="row mx-1 mt-5 d-flex flex-row justify-content-center">
-                        <button id="addPeopleToListButton" onclick="addPeopleToFinalList(-1)" class="btn btn-success"><i class="fas fa-plus" aria-hidden="true"></i> Add to list </button>
+                        <button id="addPeopleToListButton" onclick="addPeopleToFinalList(-1)" class="btn btn-dark btn-custom-flat"><i class="fas fa-plus" aria-hidden="true"></i> Add to list </button>
                     </div>
 
                     <!-- List of the selected people  --> 
@@ -115,8 +115,8 @@
                     <!-- Button to validate the list -->
                     <div class="row mb-2">
                         <div class="col d-flex flex-row justify-content-center">
-                            <button class="btn btn-success" onClick="goToRecognition()"><i class="fas fa-check" aria-hidden="true"></i> Validate Selection </button>
-                            <button class="btn btn-danger mx-2" onClick="eraseList()"><i class="fas fa-trash" aria-hidden="true"></i> Purge List </button>
+                            <button class="btn btn-success btn-custom-flat" onClick="goToRecognition()"><i class="fas fa-check" aria-hidden="true"></i> Validate Selection </button>
+                            <button class="btn btn-danger btn-custom-flat mx-2" onClick="eraseList()"><i class="fas fa-trash" aria-hidden="true"></i> Purge List </button>
                         </div>
                     </div>
                </article> 
@@ -150,8 +150,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="changeLanguage('all')">Reset</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark btn-custom-flat" data-dismiss="modal" onClick="changeLanguage('all')">Reset</button>
+                        <button type="button" class="btn btn-danger btn-custom-flat" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -172,8 +172,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="changeRole('none')">Reset</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-dark btn-custom-flat" data-dismiss="modal" onClick="changeRole('none')">Reset</button>
+                        <button type="button" class="btn btn-danger btn-custom-flat" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

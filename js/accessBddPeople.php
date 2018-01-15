@@ -153,7 +153,7 @@
                         </div>
 
                         <div class="col-auto d-flex flex-column justify-content-center pl-3">
-                            <button class="btn btn-secondary" onClick="addPeopleToFinalList('.$id.')"> <i class="fas fa-plus" aria-hidden="true"></i> </button>
+                            <button class="btn btn-secondary btn-custom-flat btn-round" onClick="addPeopleToFinalList('.$id.')"> <i class="fas fa-plus" aria-hidden="true"></i> </button>
                         </div>
                     </div>
             ';
