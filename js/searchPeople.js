@@ -197,3 +197,15 @@ function resetSearchFiedl(){
     $("#inputPeopleResearch").val("");
     searchPeople();
 }
+
+function showButtonAdd(obj){
+    var btn = $(obj).find(".btn");
+    btn.removeClass("hidden");
+    btn.addClass("showButtonAddAnimation");
+}
+
+function hideButtonAdd(obj){
+    var btn = $(obj).find(".btn");
+    btn.addClass("hidden");
+    btn.removeClass("showButtonAddAnimation");
+}

@@ -140,7 +140,7 @@
             }
             
             echo '  <!-- A People card -->             
-                    <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard" onClick="showPeopleInfo('.$id.')" draggable="true" onDragStart="dragPeople(event, '.$id.')">
+                    <div class="row mx-1 mb-3 px-2 py-2 rounded peopleCard" onMouseOver="showButtonAdd(this)" onMouseLeave="hideButtonAdd(this)" onClick="showPeopleInfo('.$id.')" draggable="true" onDragStart="dragPeople(event, '.$id.')">
                         <div class="col-auto p-0">
                             <div class="d-flex flex-row h-100 peopleImage"> 
                                 <img src="'.$picture.'" alt="'.$name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>
@@ -153,7 +153,7 @@
                         </div>
 
                         <div class="col-auto d-flex flex-column justify-content-center pl-3">
-                            <button class="btn btn-secondary btn-custom-flat btn-round" onClick="addPeopleToFinalList('.$id.')"> <i class="fas fa-plus" aria-hidden="true"></i> </button>
+                            <button class="btn btn-light btn-custom-flat hidden" onClick="addPeopleToFinalList('.$id.')"> <i class="fas fa-plus" aria-hidden="true"></i> </button>
                         </div>
                     </div>
             ';
@@ -259,7 +259,7 @@
                 $picture = "res/img/people/empty.jpg";
             }
             
-            echo '<div class="col-2 p-0 mx-1 peopleFinalListImage">
+            echo '<div class="col-2 p-0 h-50 mx-1 peopleFinalListImage">
                     <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center" data-toggle="tooltip" data-html="true" title="'.$name.'"/>
                     <p style="text-align:end;margin-top: -1em">
                         <button onclick="removePeople(this, '.$id.')" type="button" class="close" aria-label="Close"> 

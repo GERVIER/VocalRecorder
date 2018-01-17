@@ -125,6 +125,7 @@ function addPeopleToFinalList(id){
  */
 function removePeople(ele, id){
     var divEle = ele.parentElement.parentElement;
+    $(ele).tooltip('hide');
     var animationEvent = whichAnimationEvent();
     $(divEle).addClass("removingAnimation");
     console.log("Click on : " + divEle);
@@ -231,4 +232,16 @@ function eraseList(){
     sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
     if(messageBox.hasClass("boxErrorMessage"))
     messageBox.fadeOut();
+}
+
+function showRemoveImage(obj){
+    var btn = $(obj).find(".delete-people-from-list");
+    btn.removeClass("hidden");
+    btn.addClass("showRemoveImageAnimation");
+}
+
+function hideRemoveImage(obj){
+    var btn = $(obj).find(".delete-people-from-list");
+    btn.addClass("hidden");
+    btn.removeClass("showRemoveImageAnimation");
 }
