@@ -206,7 +206,6 @@
                         <p class="text-center">'.$age.' years old</p>
                     </div>
                     <div class="col-3 d-flex flex-column justify-content-center">
-                        <img src="'.$picture.'" alt="'.$name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>                   
                     </div>
                 </div>
 
@@ -259,14 +258,13 @@
                 $picture = "res/img/people/empty.jpg";
             }
             
-            echo '<div class="col-2 p-0 h-50 mx-1 peopleFinalListImage">
-                    <img src="'.$picture.'" alt="'. $name.'" class="rounded-circle mw-100 mh-100 p-0 align-self-center" data-toggle="tooltip" data-html="true" title="'.$name.'"/>
-                    <p style="text-align:end;margin-top: -1em">
-                        <button onclick="removePeople(this, '.$id.')" type="button" class="close" aria-label="Close"> 
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </p>
-                    </div>';
+            echo '  <div onMouseOver="showDeleteButton(this)" onMouseLeave="hideDeleteButton(this)"class=" mx-1 my-1 peopleFinalListImage" data-toggle="tooltip" data-html="true" title="'.$name.'">
+                        <div class="peopleFinalListDeleteBtn hidden" onclick="removePeople(this, '.$id.')">
+                            <p style="text-align: center; margin-top: 2px; padding-bottom: 0px;"> <i class="fas fa-trash" aria-hidden="true"></i> Delete </p>
+                        </div>
+                        <img src="'.$picture.'" alt="'. $name.'" class=" mw-100 mh-100 align-self-center"/>
+                    </div>'
+                    ;
         }
     }
 

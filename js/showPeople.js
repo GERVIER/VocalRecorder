@@ -124,8 +124,8 @@ function addPeopleToFinalList(id){
  * @param {*} id 
  */
 function removePeople(ele, id){
-    var divEle = ele.parentElement.parentElement;
-    $(ele).tooltip('hide');
+    var divEle = ele.parentElement;
+    $(divEle).tooltip('hide');
     var animationEvent = whichAnimationEvent();
     $(divEle).addClass("removingAnimation");
     console.log("Click on : " + divEle);
@@ -234,14 +234,14 @@ function eraseList(){
     messageBox.fadeOut();
 }
 
-function showRemoveImage(obj){
-    var btn = $(obj).find(".delete-people-from-list");
-    btn.removeClass("hidden");
-    btn.addClass("showRemoveImageAnimation");
+function showDeleteButton(obj){
+    deleteDiv = $(obj).find(".peopleFinalListDeleteBtn");
+    deleteDiv.removeClass("hidden");
+    deleteDiv.addClass("showDeleteDivAnimation");
 }
 
-function hideRemoveImage(obj){
-    var btn = $(obj).find(".delete-people-from-list");
-    btn.addClass("hidden");
-    btn.removeClass("showRemoveImageAnimation");
+function hideDeleteButton(obj){
+    deleteDiv = $(obj).find(".peopleFinalListDeleteBtn");
+    deleteDiv.addClass("hidden");
+    deleteDiv.removeClass("showDeleteDivAnimation");
 }

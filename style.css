@@ -4,11 +4,39 @@
 
 
 
+/* --Medium PC Screen-- */
+/* ------------------- */
+@media screen and (max-width: 1366px){
+    .peopleFinalListImage{
+        width: 7vw !important;
+        height: 7vw !important;
+    }
+
+    .peopleFinalListDeleteBtn{
+        width: 7vw !important;
+        height: 2.7vw !important;
+    }
+}
+
 /* --Small PC Screen-- */
 /* ------------------- */
 @media screen and (max-width: 990px){
+    .logo-lium{
+        display: none;
+    }
+
     .peopleImage{
         display: none !important;
+    }
+
+    .peopleFinalListImage{
+        width: 8vw !important;
+        height: 8vw !important;
+    }
+
+    .peopleFinalListDeleteBtn{
+        width: 8vw !important;
+        height: 3vw !important;
     }
 }
 
@@ -17,6 +45,26 @@
 @media screen and (max-width: 576px){
     .peopleImage{
         display: block !important;
+    }
+
+    h1{
+        font-size: 150%;
+    }
+
+    .logo-lium{
+        display: none;
+    }
+
+    .peopleFinalListImage{
+        border: 1px solid rgb(215,215,215) !important;
+        width: 15vw !important;
+        height: 15vw !important;
+    }
+
+    .peopleFinalListDeleteBtn{
+        width: 15vw !important;
+        height: 7vw !important;
+        font-size: 80%;
     }
 }
 
@@ -29,6 +77,7 @@ body{
 
 h1{
     font-family: 'Raleway', sans-serif !important;
+    text-shadow: 1px 1px 2px rgba(55, 55, 55, 0.75);
 }
 
 header{
@@ -133,12 +182,44 @@ input{
 }
 
 #finalPeopleList{
-    border: 1px dashed #c2c2c2;
+    color: rgb(215,215,215);
+    text-shadow: 3px 3px 5px rgba(55, 55, 55, 0.75);
+    background-color: rgba(50,50,50,0.8);
     min-width: 100%;
-    border-radius: 5px;
     min-height: 7em;
     padding: 1em;
 }
+
+.peopleFinalListImage{
+    position: relative;
+    border: 1px solid rgb(215,215,215) !important;
+    width: 5vw;
+    height: 5vw;
+    transition-duration: 0.2s;
+    overflow: hidden;
+}
+
+.peopleFinalListImage:hover{
+    box-shadow: 
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.peopleFinalListDeleteBtn{
+    position: absolute;
+    width: 5vw;
+    height: 1.7vw;
+    cursor: default;
+    left:-1px;
+    bottom : -1px;
+    background-color: rgba(168, 0, 0, 0.5);
+    border-left: 1px solid rgb(215,215,215) !important;
+    border-bottom: 1px solid rgb(215,215,215) !important;
+    border-right: 1px solid rgb(215,215,215) !important;
+
+}
+
 
 .whenDragOver{
     border: 2px solid #6dd37e !important;
@@ -185,8 +266,7 @@ input{
 
 #textNoPeople{
     margin: auto;
-    font-size: 2em;
-
+    font-size: 1.5em;
 }
 
 .hidden{
