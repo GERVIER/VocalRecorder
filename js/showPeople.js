@@ -169,6 +169,7 @@ function updatePeopleList(){
             data : {fonction : 'getPeopleFinalList', id : peopleIdList}, 
             dataType : 'text',
             success : function (result, statut){
+                $(".peopleFinalListImage").tooltip("hide");
                 $("#finalPeopleList").html(result);
                 $('[data-toggle="tooltip"]').tooltip()
             },

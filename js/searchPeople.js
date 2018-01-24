@@ -81,15 +81,15 @@ function requestData(){
 function addPagination(nbElementPerPage, nbeElement){
     var nbPage = Math.ceil(nbeElement/(nbElementPerPage*2));
 
-    var toReturn = '<li class="'+((currentPage==1)?"page-item disabled":"page-item")+'"><a class="page-link" href="#" onClick="changePage('+ (currentPage-1)+')"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>';
+    var toReturn = '<li class="'+((currentPage==1)?"page-item disabled":"page-item")+'"><a class="page-link page-link-custom" href="#" onClick="changePage('+ (currentPage-1)+')"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>';
 
     console.log("nb Page : " + nbPage);
 
     for(i = 0; i < nbPage; i++){
-        toReturn += '<li class="'+(((i+1)==currentPage)?"page-item active":"page-item")+'"><a class="page-link" href="#" onClick="changePage('+ (i+1)+')">'+ (i+1) +'</a></li>';
+        toReturn += '<li class="'+(((i+1)==currentPage)?"page-item active active-custom":"page-item")+'"><a class="page-link page-link-custom" href="#" onClick="changePage('+ (i+1)+')">'+ (i+1) +'</a></li>';
     }
 
-    toReturn += '<li class="'+((currentPage==nbPage)?"page-item disabled":"page-item")+'"><a class="page-link" href="#" onClick="changePage('+ (currentPage+1)+')"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>';
+    toReturn += '<li class="'+((currentPage==nbPage)?"page-item disabled":"page-item")+'"><a class="page-link page-link-custom" href="#" onClick="changePage('+ (currentPage+1)+')"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>';
     return toReturn
 }
 
