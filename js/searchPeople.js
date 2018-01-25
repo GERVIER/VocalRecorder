@@ -11,7 +11,6 @@ $(document).ready(function (){
     $.event.addProp('dataTransfer');
     getAllLanguage()
     getAllRole();
-    requestData();
     requestPagination();
 
     filterList = $("#filterList");
@@ -20,6 +19,14 @@ $(document).ready(function (){
         if(e.keyCode == 13)
             searchPeople();
     });
+
+    $("header").addClass("showHeaderAnimation");
+    $("header").css("visibility", "visible");
+
+    $("#peoplePreview").addClass("showRightAnimation");
+    $("#peoplePreview").css("visibility", "visible");
+
+    requestData();
 });
 
 
@@ -48,6 +55,8 @@ function requestPagination(){
  * Show and/or reset the data using the actual parameters
  */
 function requestData(){
+    var animationEvent = whichAnimationEvent();
+
     console.log("Left first : " + first);
     $.ajax({
         url : 'accessFunction.php',
@@ -56,7 +65,21 @@ function requestData(){
         dataType : 'html',
         success : function (codeHTML, statut){
             console.log("Current page : " + currentPage);
-            $("#peopleListLeft").html(codeHTML);
+            console.log();
+            var listOfCardLeft = $("#peopleListLeft").find(".peopleCard");
+            if(listOfCardLeft.length==0){
+                $("#peopleListLeft").html(codeHTML);
+                $(".peopleCard").addClass("showCardAnimation");
+            }
+            else{
+                $(".peopleCard").addClass("hideCardAnimation");
+                $(".peopleCard").one(animationEvent, function(event){
+                    $("#peopleListLeft").html(codeHTML);
+                    $(".peopleCard").addClass("showCardAnimation");
+                })
+            }
+
+            
         },
     });
 
@@ -67,10 +90,20 @@ function requestData(){
         data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language, role : role, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
-            $("#peopleListRight").html(codeHTML);
+            var listOfCardRight = $("#peopleListRight").find(".peopleCard");
+            if(listOfCardRight.length==0){
+                $("#peopleListRight").html(codeHTML);
+                $(".peopleCard").addClass("showCardAnimation");
+            }
+            else{
+                $(".peopleCard").addClass("hideCardAnimation");
+                $(".peopleCard").one(animationEvent, function(event){
+                    $("#peopleListRight").html(codeHTML);
+                    $(".peopleCard").addClass("showCardAnimation");
+                })
+            }
         },
     });
-
 }
 
 /**

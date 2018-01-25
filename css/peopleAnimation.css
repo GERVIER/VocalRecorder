@@ -40,3 +40,65 @@
 .showDeleteDivAnimation{
     animation: showDeleteDiv 0.3s forwards;
 }
+
+@keyframes showHeader{
+    0% {
+        transform: translateY(-200%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 100;
+    }
+}
+
+.showHeaderAnimation{
+    animation: showHeader 1s forwards;
+}
+
+
+@keyframes showRight{
+    0% {
+        transform: translateX(200%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0%);
+        opacity: 100;
+    }
+}
+
+.showRightAnimation{
+    animation: showRight 1s forwards;
+}
+
+@keyframes showCard{
+    0% {
+        transform: rotateY(270deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+.showCardAnimation{
+    animation: showCard 0.5s forwards;
+}
+
+
+@keyframes hideCard{
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateY(90deg);
+    }
+}
+
+.hideCardAnimation{
+    animation: hideCard 0.5s forwards;
+}
