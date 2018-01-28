@@ -1,0 +1,38 @@
+/* -- CUSTOM FONT -- */
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+#home{
+    text-align: center;
+    margin-top: 5em;
+}
+
+.title{
+    font-family: 'Raleway', sans-serif !important;
+    font-size: 4em;
+    
+    text-align: center;
+    text-transform: uppercase;
+    text-rendering: optimizeLegibility;
+
+
+    color: #2c2c2c;
+    letter-spacing: .05em;
+    text-shadow: 
+      4px 4px 0px #d5d5d5, 
+      7px 7px 0px rgba(0, 0, 0, 0.2);
+  }
+
+#btn-launch-demo{
+    font-size: 2em;
+}
+
+#explication{
+    margin: 3em;
+    text-align: justify !important;
+    color: white;
+    text-shadow: 1px 1px 1px rgba(55, 55, 55, 0.9);
+    background-color: rgb(52, 58, 64);
+    padding: 1em;
+
+}
