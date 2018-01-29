@@ -28,10 +28,10 @@ $("#file").change(function(e){
 
 $('#start_button').on('click', function(e){
     e.preventDefault();
-    if ($(this).hasClass('stop_button')) {
-            $(this).text('Let\'s start').removeClass('stop_button');
+    if ($(this).hasClass('btn-danger')) {
+            $(this).text('Let\'s start').removeClass('btn-danger').addClass("btn-success");
     } else {
-        $(this).text('stop').addClass('stop_button');
+        $(this).text('stop').addClass('btn-danger').removeClass("btn-success");
     }
 });
 

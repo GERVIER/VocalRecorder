@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/result.css">
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/file.css">
+    <link rel="stylesheet" href="style.css">
 
     <!-- Utils JS Import -->
     <script src="utils/bootstrap4/js/bootstrap.bundle.min.js"></script>
@@ -29,10 +30,8 @@
       <!-- Header of the page wich contains a backButton, tilte and lium Logo -->
       <header class="row pt-3 pb-3 sticky-top">
         <div class="col-lg-4">
-          <a href="index.html">
-            <button type="submit"  class="btn btn-primary">
-              <i class="fa fa-arrow-left" aria-hidden="true"></i> Change dataset
-            </button>
+          <a href="selectPeople.html">
+            <button type="submit"  class="btn btn-light btn-custom-flat"> <i class="fa fa-arrow-left" aria-hidden="true"> </i> Change dataset </button>
           </a>
         </div>
           
@@ -51,14 +50,10 @@
             <!-- Tab system for changing the type of audio source -->
             <label style="text-decoration: underline; font-size: 125%;">Audio source type</label>
             <div id="buttons">
-              <button type="submit"  class="btn btn-primary col-lg-4" disabled>
+              <button type="submit"  class="btn btn-dark btn-custom-flat col-lg-4" disabled>
                 File
               </button>
-              <a href="microphone.html">
-                <button id="activeButton" class="btn btn-primary col-lg-6" >
-                  Audio data stream
-                </button>
-              </a>
+              <a href="microphone.html" id="activeButton" class="btn btn-dark btn-custom-flat col-lg-6"> Audio data stream </a>
             </div>
 
             <div id="testFile">
@@ -115,12 +110,12 @@
 
             
                 <div class="col d-flex flex-row justify-content-center">
-                    <button id="start_button" onClick="snackbarFunction()"> Let's start </button>
+                    <button class="btn btn-success btn-custom-flat" id="start_button" onClick="snackbarFunction()"> Let's start </button>
                 </div>
            
 
             <div id="snackbar">
-              <button class="buttonload btn btn-primary">
+              <button class="buttonload btn btn-primary btn-custom-flat">
                 <i class="fa fa-spinner fa-spin"></i>
                 Loading
               </button>

@@ -9,48 +9,28 @@ audio {
     font-size: 16px; /* Set a font-size */
 }
 
-/* Add a right margin to each icon */
-.fa {
-    margin-left: -12px;
-    margin-right: 8px;
-}
-
 #testFile {
     border-bottom: 2px dashed #868e96;
+    margin-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 
 #testFiles {
-    height: 100px;
-    background-color: rgba(210, 210, 210, 0.8);
     margin-bottom: 10px;
-    padding-top: 2%;
 }
 
 #audioFile {
-    height: 25px;
-    background-color: rgba(220, 220, 220, 0.8);
+    background-color: rgb(235, 235, 235);
     margin-bottom: 2%;
     text-align: left;
     margin-left: 5%;
+    padding-top: 0.2em;
+
 }
 
 button.stop_button{
 	background: red !important;
 	padding: 5px 29px 5px 29px !important;
-}
-
-#start_button{
-    float: left; 
-	background: #389838; 
-	border: none; 
-	color: white; 
-	border-radius: 10px; 
-	padding: 5px 10px 5px 10px; 
-	font-weight: bold; 
-	position: relative; 
-	top: -2px; 
-	right: -20px;
-	opacity: .80;
 }
 
 #snackbar {
