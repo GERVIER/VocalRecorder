@@ -1,4 +1,7 @@
 $(document).ready(function (){
+    $("#fileZone").addClass("showLeftMenuAnimation");
+
+
     peopleIdList = sessionStorage.getItem("idList");
     peopleIdList = JSON.parse(peopleIdList);
 
@@ -9,9 +12,12 @@ $(document).ready(function (){
             data: {fonction: 'getPeopleCarousel', id : peopleIdList},
             dataType : 'html',
             success : function (codeHTML, statut){
-                $("#showcase").html(codeHTML);
 
                 var showcase = $("#showcase"), title = $('#item-title')
+
+                showcase.css( 'visibility', 'hidden' )
+                $("#showcase").html(codeHTML);
+
             
                 showcase.Cloud9Carousel( {
                     yOrigin: 42,
