@@ -4,4 +4,24 @@ html {
 
 #showcase {
     height: 500px;
+  }
+
+/* #region Apparition Animation*/
+@keyframes showLeftMenu{
+  0% {
+    transform: translateX(-200%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0%);
+    opacity: 100;
+  }
+  
 }
+
+.showLeftMenuAnimation{
+  animation : showLeftMenu 0.5s forwards;
+}
+
+/* #endregion */
