@@ -1,8 +1,42 @@
+/* -- CUSTOM FONT -- */
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+
+/* --Medium PC Screen-- */
+/* ------------------- */
+@media screen and (max-width: 1366px){
+    .peopleFinalListImage{
+        width: 7vw !important;
+        height: 7vw !important;
+    }
+
+    .peopleFinalListDeleteBtn{
+        width: 7vw !important;
+        height: 2.7vw !important;
+    }
+}
+
 /* --Small PC Screen-- */
 /* ------------------- */
 @media screen and (max-width: 990px){
+    .logo-lium{
+        display: none;
+    }
+
     .peopleImage{
         display: none !important;
+    }
+
+    .peopleFinalListImage{
+        width: 8vw !important;
+        height: 8vw !important;
+    }
+
+    .peopleFinalListDeleteBtn{
+        width: 8vw !important;
+        height: 3vw !important;
     }
 }
 
@@ -12,10 +46,120 @@
     .peopleImage{
         display: block !important;
     }
+
+    h1{
+        font-size: 150%;
+    }
+
+    .logo-lium{
+        display: none;
+    }
+
+    .peopleFinalListImage{
+        border: 1px solid rgb(215,215,215) !important;
+        width: 15vw !important;
+        height: 15vw !important;
+    }
+
+    .peopleFinalListDeleteBtn{
+        width: 15vw !important;
+        height: 7vw !important;
+        font-size: 80%;
+    }
 }
 
 /* --PC Screen-- */
 /* ------------- */
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(215, 215, 215);
+
+    background-image: url(res/img/background.png);
+    background-size: cover;
+}
+
+h1{
+    font-family: 'Raleway', sans-serif !important;
+    text-shadow: 1px 1px 2px rgba(55, 55, 55, 0.75);
+}
+
+header{
+    visibility: hidden;
+    background-color: rgb(173, 173, 173);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.form-control-custom{
+    border: none !important;
+}
+
+.form-control-custom:focus{
+    box-shadow: 
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+.dropdown-item-custom{
+    transition-duration: 0.1s;
+}
+
+.dropdown-item-custom:active{
+    background-color: #292d31 !important;
+    color: #fff !important;
+}
+
+.btn-custom-flat{
+    border-radius: 0px !important;
+}
+
+.btn-custom-flat:hover{
+    box-shadow: 
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.btn-custom-flat:active{
+    box-shadow: 
+        0px 5px 5px -3px rgba(0, 0, 0, 0.2), 
+        0px 8px 10px 1px rgba(0, 0, 0, 0.14), 
+        0px 3px 14px 2px rgba(0, 0, 0, 0.12) !important;
+}
+
+.btn-custom-flat:focus{
+    box-shadow: 
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.show>.btn{
+    box-shadow: 
+    0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+.btn-round{
+    border-radius: 75px !important;
+}
+
+.dropdown-menu{
+    border-radius: 0px;
+    box-shadow: 
+    0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+    0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+.rightColumn{
+    border-left: 1px dashed #868e96;
+}
+
+input{
+    border-radius: 0px !important;
+}
 
 .peopleImage{
     width: 75px;
@@ -26,12 +170,131 @@
     cursor: pointer;
     max-height: 115px !important;   
     transition-duration: 0.2s;
+    background-color: rgba(200,200,200,0.8);
+    color: rgb(45,45,45);
 }
 
 .peopleCard:hover{
-    background-color: #b9b9b9;
+    background-color: rgba(50,50,50,0.8);
+    color: rgb(210,210,210);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+    
 }
 
 .showBox{
     border: 1px solid black;
+}
+
+#finalPeopleList{
+    color: white;
+    text-shadow: 3px 3px 5px rgba(55, 55, 55, 0.75);
+    background-color: rgba(50,50,50,0.8);
+    min-width: 100%;
+    min-height: 7em;
+    padding: 1em;
+}
+
+.peopleFinalListImage{
+    position: relative;
+    border: 1px solid rgb(215,215,215) !important;
+    width: 5vw;
+    height: 5vw;
+    transition-duration: 0.2s;
+    overflow: hidden;
+}
+
+.peopleFinalListImage:hover{
+    box-shadow: 
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.peopleFinalListDeleteBtn{
+    position: absolute;
+    width: 5vw;
+    height: 1.7vw;
+    cursor: default;
+    left:-1px;
+    bottom : -1px;
+    background-color: rgba(168, 0, 0, 0.5);
+    border-left: 1px solid rgb(215,215,215) !important;
+    border-bottom: 1px solid rgb(215,215,215) !important;
+    border-right: 1px solid rgb(215,215,215) !important;
+
+}
+
+
+.whenDragOver{
+    border: 1px solid #6dd37e !important;
+}
+
+.boxErrorMessage{
+    min-width: 100%;
+    border-radius: 5px;
+    padding: 1em;
+    min-height: 4em;
+    border: 1px solid #ffffff !important;
+    background-color: #cc2c2c
+}
+
+.boxInfoMessage{
+    min-width: 100%;
+    border-radius: 5px;
+    padding: 1em;
+    min-height: 4em;
+    background-color: #1b8f20
+}
+
+#textMessage{
+    color : #ffffff;
+    margin: auto;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.filterElement{
+    margin-right: 5px; 
+    background-color: #343a40;
+    padding: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 75%;
+    transition-duration: 0.2s;
+}
+
+.filterElement:hover{
+    background-color: #292d31;
+    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+}
+
+#textNoPeople{
+    margin: auto;
+    font-size: 1.5em;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.page-link-custom{
+    border-radius: 0px !important;
+    border: none !important;
+    color: black;
+    transition-duration: 0.2s;
+}
+
+li[class$="page-item"]>.page-link-custom:hover{
+    color: black !important;
+    background-color: #e2e6ea !important;
+    box-shadow:       
+        0px 2px 4px -1px rgba(0, 0, 0, 0.2), 
+        0px 4px 5px 0px rgba(0, 0, 0, 0.14), 
+        0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+li[class$="active-custom"]>.page-link-custom{
+    color: white !important;
+    background-color: #343a40 !important;
+
 }

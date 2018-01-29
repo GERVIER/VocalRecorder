@@ -1,34 +1,35 @@
+var filterList;
+var currentPage = 1;
+var first = 0;
+var numberPerColumn = 6;
+var order = "asc";
+var language = "all";
+var role = "none";
+var searchTerm = "";
+
 $(document).ready(function (){
     $.event.addProp('dataTransfer');
     getAllLanguage()
-    requestData();
+    getAllRole();
     requestPagination();
 
+    filterList = $("#filterList");
 
     $("#inputPeopleResearch").bind("keypress", function(e){
         if(e.keyCode == 13)
             searchPeople();
     });
 
-    $("#finalPeopleList").bind("dragover", function(e){
-        e.preventDefault();
-    });
+    $("header").addClass("showHeaderAnimation");
+    $("header").css("visibility", "visible");
 
-    $("#finalPeopleList").bind("drop", function(e){
-        var id = e.dataTransfer.getData('text/plain');
-        console.log(id);      
-        addPeopleToFinalList(id);
-        showPeopleInfo(id);
-    });
+    $("#peoplePreview").addClass("showRightAnimation");
+    $("#peoplePreview").css("visibility", "visible");
 
+    requestData();
 });
 
-var currentPage = 1;
-var first = 0;
-var numberPerColumn = 6;
-var order = "asc";
-var language = "all";
-var searchTerm = "";
+
 
 /**
  * Show and/or reset the pagination with the actual parameters
@@ -54,16 +55,31 @@ function requestPagination(){
  * Show and/or reset the data using the actual parameters
  */
 function requestData(){
-    console.log("Left first : " + first);
+    var animationEvent = whichAnimationEvent();
 
+    console.log("Left first : " + first);
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order, language : language, term : searchTerm},
+        data: {fonction: 'getPeopleAsList', first: first, numberPerColumn : numberPerColumn, order : order, language : language, role : role, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
             console.log("Current page : " + currentPage);
-            $("#peopleListLeft").html(codeHTML);
+            console.log();
+            var listOfCardLeft = $("#peopleListLeft").find(".peopleCard");
+            if(listOfCardLeft.length==0){
+                $("#peopleListLeft").html(codeHTML);
+                $(".peopleCard").addClass("showCardAnimation");
+            }
+            else{
+                $(".peopleCard").addClass("hideCardAnimation");
+                $(".peopleCard").one(animationEvent, function(event){
+                    $("#peopleListLeft").html(codeHTML);
+                    $(".peopleCard").addClass("showCardAnimation");
+                })
+            }
+
+            
         },
     });
 
@@ -71,13 +87,23 @@ function requestData(){
     $.ajax({
         url : 'accessFunction.php',
         type : 'POST',
-        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language, term : searchTerm},
+        data: {fonction: 'getPeopleAsList', first: (first+numberPerColumn), numberPerColumn : numberPerColumn, order : order, language :language, role : role, term : searchTerm},
         dataType : 'html',
         success : function (codeHTML, statut){
-            $("#peopleListRight").html(codeHTML);
+            var listOfCardRight = $("#peopleListRight").find(".peopleCard");
+            if(listOfCardRight.length==0){
+                $("#peopleListRight").html(codeHTML);
+                $(".peopleCard").addClass("showCardAnimation");
+            }
+            else{
+                $(".peopleCard").addClass("hideCardAnimation");
+                $(".peopleCard").one(animationEvent, function(event){
+                    $("#peopleListRight").html(codeHTML);
+                    $(".peopleCard").addClass("showCardAnimation");
+                })
+            }
         },
     });
-
 }
 
 /**
@@ -88,15 +114,15 @@ function requestData(){
 function addPagination(nbElementPerPage, nbeElement){
     var nbPage = Math.ceil(nbeElement/(nbElementPerPage*2));
 
-    var toReturn = '<li class="'+((currentPage==1)?"page-item disabled":"page-item")+'"><a class="page-link" href="#" onClick="changePage('+ (currentPage-1)+')"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>';
+    var toReturn = '<li class="'+((currentPage==1)?"page-item disabled":"page-item")+'"><a class="page-link page-link-custom" href="#" onClick="changePage('+ (currentPage-1)+')"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>';
 
     console.log("nb Page : " + nbPage);
 
     for(i = 0; i < nbPage; i++){
-        toReturn += '<li class="'+(((i+1)==currentPage)?"page-item active":"page-item")+'"><a class="page-link" href="#" onClick="changePage('+ (i+1)+')">'+ (i+1) +'</a></li>';
+        toReturn += '<li class="'+(((i+1)==currentPage)?"page-item active active-custom":"page-item")+'"><a class="page-link page-link-custom" href="#" onClick="changePage('+ (i+1)+')">'+ (i+1) +'</a></li>';
     }
 
-    toReturn += '<li class="'+((currentPage==nbPage)?"page-item disabled":"page-item")+'"><a class="page-link" href="#" onClick="changePage('+ (currentPage+1)+')"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>';
+    toReturn += '<li class="'+((currentPage==nbPage)?"page-item disabled":"page-item")+'"><a class="page-link page-link-custom" href="#" onClick="changePage('+ (currentPage+1)+')"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>';
     return toReturn
 }
 
@@ -117,11 +143,11 @@ function changePage(page){
 function changeAlphaOrder(){
     if(order == 'asc'){
         order = 'desc';
-        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-asc");
+        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-up");
     }
     else{
         order = 'asc';
-        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-desc");
+        $("#logoAlphaOrder").prop("class", "fa fa-sort-alpha-down");
     }
     
     requestData();
@@ -134,8 +160,23 @@ function changeAlphaOrder(){
  * @param {*} newLanguage 
  */
 function changeLanguage(newLanguage){
+    $(".filterLanguage").remove();
     console.log("Changed language to :" + newLanguage);
     language = newLanguage;
+    if(language != "all"){
+        filterList.append("<span class=\"filterElement filterLanguage\" onClick=\"changeLanguage('all')\"> <i class=\"fas fa-minus-circle\"></i> Language : "+ language +" </span>")
+    }
+    requestData();
+    requestPagination();
+}
+
+function changeRole(newRole){
+    $(".filterRole").remove();
+    console.log("Changed role to :" + newRole);
+    role = newRole;
+    if(role != "none"){
+        filterList.append("<span class=\"filterElement filterRole\" onClick=\"changeRole('none')\"> <i class=\"fas fa-minus-circle\"></i> Role : "+ role +" </span>")
+    }
     requestData();
     requestPagination();
 }
@@ -150,17 +191,54 @@ function getAllLanguage(){
         data: {fonction: 'getAllLanguage'},
         dataType : 'html',
         success : function (codeHTML, statut){
-            console.log("Current page : " + currentPage);
             $("#listLanguage").html(codeHTML);
         },
     });
 }
 
+/**
+ * Request the serveur to get all the role in the people list.
+ */
+function getAllRole(){
+    $.ajax({
+        url : 'accessFunction.php',
+        type : 'POST',
+        data: {fonction: 'getAllRole'},
+        dataType : 'html',
+        success : function (codeHTML, statut){
+            $("#listRole").html(codeHTML);
+        },
+    });
+}
+
+//Search someone using the search bar
 function searchPeople(){
     searchTerm = $("#inputPeopleResearch").val();
     console.log("Search Term : " + searchTerm);
+    $(".filterTerm").remove();
+
+    if(searchTerm != ""){
+        filterList.append("<span class=\"filterElement filterTerm\" onClick=\"resetSearchFiedl()\"> <i class=\"fas fa-minus-circle\"></i> Search : "+ searchTerm +" </span>")
+    }
 
     requestData();
     requestPagination();
 
+}
+
+function resetSearchFiedl(){
+    $("#inputPeopleResearch").val("");
+    searchPeople();
+}
+
+function showButtonAdd(obj){
+    var btn = $(obj).find(".btn");
+    btn.removeClass("hidden");
+    btn.addClass("showButtonAddAnimation");
+}
+
+function hideButtonAdd(obj){
+    var btn = $(obj).find(".btn");
+    btn.addClass("hidden");
+    btn.removeClass("showButtonAddAnimation");
 }
