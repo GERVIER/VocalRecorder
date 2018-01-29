@@ -18,7 +18,7 @@ $(document).ready(function (){
                     yRadius: 48,
                     mirror: {
                     gap: 12,
-                    height: 0.2
+                    height: 0
                     },
                     buttonLeft: $("#nav > .left"),
                     buttonRight: $("#nav > .right"),

@@ -25,3 +25,29 @@ $("#file").change(function(e){
     objectUrl = URL.createObjectURL(file);
     $("#audio").prop("src", objectUrl);
 });
+
+$('#start_button').on('click', function(e){
+    e.preventDefault();
+    if ($(this).hasClass('btn-danger')) {
+            $(this).text('Let\'s start').removeClass('btn-danger').addClass("btn-success");
+    } else {
+        $(this).text('stop').addClass('btn-danger').removeClass("btn-success");
+    }
+});
+
+$('.stop_button').on('click', function(e) {
+    e.preventDefault();
+    alert('stopping!');
+});
+
+
+function snackbarFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
