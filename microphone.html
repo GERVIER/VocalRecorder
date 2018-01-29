@@ -14,10 +14,10 @@
 
     <!-- Design CSS -->
     <link rel="stylesheet" href="css/result.css">
-    <link rel="stylesheet" href="css/microphone.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/loader.css">
- 
+    <link rel="stylesheet" href="css/loader.css"> 
+    <link rel="stylesheet" href="css/microphone.css">
+
     <!-- Utils JS Import -->
     <script src="utils/bootstrap4/js/bootstrap.bundle.min.js"></script>    
     <script src="utils/jquery.min.js"></script>
@@ -35,44 +35,72 @@
   <body>
     <div class="container-fluid">
 
-      <div id="header" class="row">
-        <div class="col-lg-2">
+      <!-- Header of the page wich conatain a backButton, tilte and lium Logo -->
+      <header class="row pt-3 pb-3 sticky-top">
+        <div class="col-lg-4">
           <a href="index.html">
             <button type="submit"  class="btn btn-primary">
               <i class="fa fa-arrow-left" aria-hidden="true"></i> Change dataset
             </button>
           </a>
         </div>
-
-        <div class="col-lg-8">
-          <h1>Interface for speaker recognition</h1> 
+        <div class="col-lg-4">
+          <h1 class="text-center">Interface for speaker recognition</h1>
         </div>
-
-        <div class="col-lg-2">
-          <a href="http://www-lium.univ-lemans.fr/fr/content/bienvenue"><img id ="logo" class="float-right" src="res/logo/lium.png" alt="LIUM"/></a>
+        <div class="col-lg-4">
+          <a href="http://www-lium.univ-lemans.fr/fr/content/bienvenue"></a><img src="res/logo/lium.png" class="float-right" style="width:100px"></a>                    
         </div>
-      </div>
+      </header>
+
 
       <div id="content" class="row mx-1">    
-        <div class="col-lg-4">
-          <div id="fileZone"  class="col-lg-12">
-            <ul>
-              <li><a id="textMenu" href="file.html">File</a></li>
-              <li><a id="textMenu" class="active">Audio data stream</a></li>
-            </ul>
-            <div>
-                    <br>
-                    <img id="record" src="res/img/record/black.svg" onclick="isFlashing()"/>
-                    <br>
-                    <br>
-                    <input type ="text" id="chronotime" value="0:00:00:00">
-                    <br>
-                    <br>
-                    <div class="loader"></div>
+        <div class="col-lg-4"> 
+          <div id="fileZone"  class="col-lg-9 rounded">
+            <!-- Tab system for changing the type of audio source -->
+            <label style="text-decoration: underline;">Audio source type</label>
+            <div id="buttons">
+              <a href="file.html">
+                <button id="activeButton" type="submit"  class="btn btn-primary col-lg-4">
+                  File
+                </button>
+              </a>
+              <button class="btn btn-primary col-lg-6" disabled>
+                Audio data stream
+              </button>
+            </div>
+           
+            <!-- Sound waves activated by the user voice-->
+            <div id="vibes">
+              <div class="wrapper">
+                <div id="waves">
+                    <canvas class="visualizer" height="100"></canvas>
+                    <form class="controls">
+                      <div>
+                        <select id="visual" name="visual">
+                          <option value="sinewave">Sinewave</option>
+                          <option value="frequencybars" selected>Frequency bars</option>
+                        </select>
+                      </div>
+                    </form>
+                </div>
+              </div>
+
+              <!-- Button to record the user's voice-->
+              <br>
+              <img id="record" src="res/img/record/black.svg" onclick="isFlashing()"/>
+              <br>
+              <br>
+              <input type ="text" id="chronotime" value="0:00:00:00">
+              <br>
+              <br>
+              
+              <!-- Loader to indicate that the analysis is running-->
+              <div class="loader"></div>
             </div>
           </div>
         </div>
 
+        <!-- Carousel to display the server result  -->
         <div id="carouselZone"class="col-lg-8">
           <div class="wrap">
             <div id="showcase" class="noselect">
@@ -99,6 +127,9 @@
       </div>
     </div>
 
+    <!-- Below is your custom application script -->
+    <script src="js/app.js"></script>
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/getCarousel.js"></script>

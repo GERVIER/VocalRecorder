@@ -22,6 +22,7 @@ control=false;
 flashing=false;
 document.images[1].src="res/img/record/black.svg";
 chronoStop();
+document.getElementById("waves").style.display = "none";
 }
 
 function doit()
@@ -30,6 +31,8 @@ control=true;
 flashing=true;
 clignote();
 chronoStart();
+document.getElementById("waves").style.display = "block";
+
 }
 
 function isFlashing()
@@ -39,4 +42,7 @@ function isFlashing()
   }else {
     stopit(); 
   }
+
+
+
 }

@@ -26,81 +26,131 @@
       
   <body>
     <div class="container-fluid">
-      <div id="header" class="row">
-        <div class="col-lg-2">
+      <!-- Header of the page wich contains a backButton, tilte and lium Logo -->
+      <header class="row pt-3 pb-3 sticky-top">
+        <div class="col-lg-4">
           <a href="index.html">
             <button type="submit"  class="btn btn-primary">
               <i class="fa fa-arrow-left" aria-hidden="true"></i> Change dataset
             </button>
           </a>
         </div>
-
-        <div class="col-lg-8">
-          <h1>Interface for speaker recognition</h1> 
+          
+        <div class="col-lg-4">
+          <h1 class="text-center">Interface for speaker recognition</h1>
         </div>
-
-        <div class="col-lg-2">
-          <a href="http://www-lium.univ-lemans.fr/fr/content/bienvenue"><img id ="logo" class="float-right" src="res/logo/lium.png" alt="LIUM"/></a>
+        <div class="col-lg-4">
+          <a href="http://www-lium.univ-lemans.fr/fr/content/bienvenue"></a><img src="res/logo/lium.png" class="float-right" style="width:100px"></a>                    
         </div>
-      </div>
+      </header>
 
       <div id="content" class="row mx-1">    
-        <div id="fileZone" class="col-lg-4">
-          <div class="col-lg-12">
-            <ul>
-              <li><a class="active">File</a></li>
-              <li><a href="microphone.html">Audio data stream</a></li>
-            </ul>
-            <div>
+        <div class="col-lg-4"> 
+          <!-- -->
+          <div id="fileZone"  class="col-lg-9 rounded">
+            <!-- Tab system for changing the type of audio source -->
+            <label style="text-decoration: underline; font-size: 125%;">Audio source type</label>
+            <div id="buttons">
+              <button type="submit"  class="btn btn-primary col-lg-4" disabled>
+                File
+              </button>
+              <a href="microphone.html">
+                <button id="activeButton" class="btn btn-primary col-lg-6" >
+                  Audio data stream
+                </button>
+              </a>
+            </div>
+
+            <div id="testFile">
+              <label style="text-decoration: underline;">Test file</label>   
+              <div id="testFiles">
+                <div id="audioFile"  class="col-lg-10 rounded">
+                      <li>
+                        Obama, Yes We Can
+                        <a href="http://www.obamadownloads.com/mp3s/yes-we-can-speech.mp3" download>
+                          <img border="0" src="res/img/download.svg" alt="download" width="20" height="20" align="right"> 
+                        </a>
+                      </li>
+                </div>
+                <div id="audioFile"  class="col-lg-10 rounded">
+                      <li>
+                          Obama, G20
+                        <a href="http://www.obamadownloads.com/mp3s/g20-speech.mp3" download>
+                          <img border="0" src="res/img/download.svg" alt="download" width="20" height="20" align="right"> 
+                        </a>
+                      </li>
+                </div>
+                <div id="audioFile"  class="col-lg-10 rounded">
+                      <li>
+                          Obama, Mandela Tribute
+                        <a href="http://www.obamadownloads.com/mp3s/mandela-speech.mp3" download>
+                          <img border="0" src="res/img/download.svg" alt="download" width="20" height="20" align="right"> 
+                        </a> 
+                      </li>
+                </div>
+                                    
+              </div>
+            </div>
+
+            <div id="inputFile">
+              <label style="text-decoration: underline;">Input file</label>
+            
               <input type="file" id="file" />
-              
               <audio id="audio"></audio>
               <br>
               <br>
               <p>
-                <label>File Name :</label>
-                <span id="filename"></span>
-              </p>
-              <p>
-                <label>File Type:</label>
+                <label>File Type :</label>
                 <span id="filetype"></span>
-              </p>
-              
-              <p>
-                <label>File Size:</label>
+                <br>             
+            
+                <label>File Size :</label>
                 <span id="filesize"></span>
-              </p>
-              
-              <p>
-                <label>Song Duration:</label>
+                <br>               
+            
+                <label>Song Duration :</label>
                 <span id="duration"></span>
               </p>
+            </div>
+
+            
+                <div class="col d-flex flex-row justify-content-center">
+                    <button id="start_button" onClick="snackbarFunction()"> Let's start </button>
+                </div>
+           
+
+            <div id="snackbar">
+              <button class="buttonload btn btn-primary">
+                <i class="fa fa-spinner fa-spin"></i>
+                Loading
+              </button>
             </div>
           </div>
         </div>
 
         <div id="carouselZone"class="col-lg-8">
-            <div class="wrap">
-              <div id="showcase" class="noselect">
+          <div class="wrap">
+            <div id="showcase" class="noselect"></div>
+            <footer>
+              <p id="item-title">&nbsp;</p>
+              <div id="nav" class="noselect">
+                <button class="left">
+                  ←
+                </button>
+                <button class="right">
+                  →
+                </button>
               </div>
-              <footer>
-                <p id="item-title">&nbsp;</p>
-                <div id="nav" class="noselect">
-                  <button class="left">
-                    ←
-                  </button>
-                  <button class="right">
-                    →
-                  </button>
-                </div>
-              </footer>
-            </div>
+            </footer>
           </div>
+        </div>
+
       </div>
     </div>
 
     <!-- Additional JS that nned to be loaded at the end -->
     <script src="js/getCarousel.js"></script>
     <script src="js/file.js"></script>
+
   </body>
 </html>
