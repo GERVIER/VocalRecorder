@@ -9,9 +9,10 @@ var msg;
 var ws;
 var isServerOnline;
 var serverConnextionRetry = null;
-
+var actualisationOn = null
 var peopleIdList = sessionStorage.getItem("idList");
 peopleIdList = JSON.parse(peopleIdList);
+
 function connectToServer(){
     console.log("Trying to connect to the server...");
     ws = new WebSocket("ws://"+ip+":"+port+"/client/ws/speech");
@@ -19,6 +20,7 @@ function connectToServer(){
 
     ws.onopen = function(){
         isServerOnline = true;
+        isWorkerAvailable = false;
         clearInterval(serverConnextionRetry);
         console.log("Server Online");
         $("#circleStatut").css("color", "green");
@@ -28,6 +30,17 @@ function connectToServer(){
 
     ws.onmessage = function (event) {
         msg = JSON.parse(event.data);
+        console.log(event.data);
+        if(!isWorkerAvailable){
+            if(msg.status == 9){
+                serverConnextionRetry = setInterval(connectToServer, 5000);
+            }
+            else{
+                isWorkerAvailable = true;
+                $("#circleStatutWorker").css("color", "green");
+                $("#textStatutWorker").html("Available");
+            }
+        }
 
         console.log(msg.result);
         result = msg.result;
@@ -36,6 +49,17 @@ function connectToServer(){
     ws.onerror = function(event){
         if(serverConnextionRetry == null)
             serverConnextionRetry = setInterval(connectToServer, 5000);
+        $("#circleStatut").css("color", "red");
+        $("#textStatut").html("Offline");
+        $("#circleStatutWorker").css("color", "red");
+        $("#textStatutWorker").html("Unavailable");
+    }
+
+    ws.onclose = function(event){
+        $("#circleStatut").css("color", "red");
+        $("#textStatut").html("Offline");
+        $("#circleStatutWorker").css("color", "red");
+        $("#textStatutWorker").html("Unavailable");
     }
 }
 
@@ -45,7 +69,8 @@ $(document).ready(function(){
     
     connectToServer();
     result = [0, 0, 0, 0, 0];
-    setInterval(updateStatut, 1000);
+    actualisationOn = setInterval(updateStatut, 1000);
+
 });
 
 function updateStatut(){
@@ -53,7 +78,8 @@ function updateStatut(){
     var pos = result.indexOf(maxi);
     //console.log("Carousel Updated");
     //console.log("Max : " + maxi + " at pos : " + pos);
-    $("#carousel").data("carousel").goTo(pos);
+    if(maxi != 0)
+        $("#carousel").data("carousel").goTo(pos);
 }
 
 //Variable
