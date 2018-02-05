@@ -37,8 +37,6 @@ function connectToServer(){
             }
             else{
                 isWorkerAvailable = true;
-                $("#circleStatutWorker").css("color", "green");
-                $("#textStatutWorker").html("Available");
             }
         }
 
@@ -51,15 +49,11 @@ function connectToServer(){
             serverConnextionRetry = setInterval(connectToServer, 5000);
         $("#circleStatut").css("color", "red");
         $("#textStatut").html("Offline");
-        $("#circleStatutWorker").css("color", "red");
-        $("#textStatutWorker").html("Unavailable");
     }
 
     ws.onclose = function(event){
         $("#circleStatut").css("color", "red");
         $("#textStatut").html("Offline");
-        $("#circleStatutWorker").css("color", "red");
-        $("#textStatutWorker").html("Unavailable");
     }
 }
 
@@ -69,8 +63,6 @@ $(document).ready(function(){
     
     connectToServer();
     result = [0, 0, 0, 0, 0];
-    actualisationOn = setInterval(updateStatut, 1000);
-
 });
 
 function updateStatut(){
@@ -98,6 +90,7 @@ var blob = null;
 var sendData = true;
 
 function startRecording() {
+    actualisationOn = setInterval(updateStatut, 1000);
     // Initialize recorder
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
     navigator.getUserMedia(
@@ -144,6 +137,7 @@ function startRecording() {
 }
 
 function stopRecording() {
+    clearInterval(actualisationOn);
     // stop recording
     recorder.disconnect(context.destination);
     mediaStream.disconnect(recorder);
@@ -151,6 +145,8 @@ function stopRecording() {
     console.log("Création du Wav");
     blob = createWavDataMonoChanel(audioChannel, recordingLength);
     console.log("Fichier Créer");
+
+    
 }
 
 playButton.addEventListener("click", function () {
