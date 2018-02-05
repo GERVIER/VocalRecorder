@@ -302,7 +302,10 @@
                 $picture = "res/img/people/empty.jpg";
             }
             
-            echo '<img id="carousel" class="cloud9-item rounded-circle" src="'.$picture.'" alt="'.$name.'">';
+            echo '  <div class="cloud9-item">
+                        <img class="peopleCarouselImg rounded-circle" src="'.$picture.'" alt="'.$name.'" />
+                        <span style="visibility:hidden">'.$id.'</span> 
+                    </div>';
         }
     }
 

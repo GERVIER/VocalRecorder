@@ -7,8 +7,12 @@ audio {
 }
 
 #carousel{
-    width: 280px;
-	height: 280px;
+	height: 500px;
+}
+
+.peopleCarouselImg{
+    width : 280px;
+    height : 280px;
 }
 
 #fileZone{ 

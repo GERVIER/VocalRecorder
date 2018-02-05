@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="utils/bootstrap4/css/bootstrap.min.css" />    
     
     <!-- Font awesome css -->
-    <link rel="stylesheet" href="utils/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="utils/font-awesome5/css/fontawesome-all.min" />
 
     <!-- Design CSS -->
     <link rel="stylesheet" href="css/result.css">
@@ -58,7 +58,7 @@
             <!-- Tab system for changing the type of audio source -->
             <label style="text-decoration: underline;">Audio source type</label>
             <div id="buttons">
-              <a href="file.html" id="activeButton" type="submit"  class="btn btn-dark btn-custom-flat col-lg-4"> File </a>
+              <a href="file.html" id="activeButton" class="btn btn-dark btn-custom-flat col-lg-4"> File </a>
               <button class="btn btn-dark btn-custom-flat col-lg-6" disabled>
                 Audio data stream
               </button>
@@ -89,22 +89,19 @@
               <br>
               <br>
               
+              <p> Server Statut : <i id="circleStatut" class="fas fa-circle" style="color:red;"></i> <span id="textStatut"> Offline </span></p>
+
               <!-- Loader to indicate that the analysis is running-->
               <div class="loader"></div>
-            </div>
+              </div>
           </div>
         </div>
 
         <!-- Carousel to display the server result  -->
         <div id="carouselZone"class="col-lg-8">
           <div class="wrap">
-            <div id="showcase" class="noselect">
-              <img id="carousel" class="cloud9-item" src="res/img/people/DavidBowie.png" alt="DavidBowie">
-              <img id="carousel" class="cloud9-item" src="res/img/people/Denis.png" alt="Denis">
-              <img id="carousel" class="cloud9-item" src="res/img/people/EllenDegenres.png" alt="EllenDegenres">
-              <img id="carousel" class="cloud9-item" src="res/img/people/DavidBowie.png" alt="DavidBowie">
-              <img id="carousel" class="cloud9-item" src="res/img/people/Maradona.png" alt="Maradona">
-              <img id="carousel" class="cloud9-item" src="res/img/people/florentPeyre.png" alt="florentPeyre">
+            <div id="carousel">
+
             </div>
             <footer>
               <p id="item-title">&nbsp;</p>
