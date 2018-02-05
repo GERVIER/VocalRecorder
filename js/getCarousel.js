@@ -13,34 +13,29 @@ $(document).ready(function (){
             dataType : 'html',
             success : function (codeHTML, statut){
 
-                var showcase = $("#showcase"), title = $('#item-title')
+                var showcase = $("#carousel"), title = $('#item-title')
 
                 showcase.css( 'visibility', 'hidden' )
-                $("#showcase").html(codeHTML);
+                showcase.html(codeHTML);
 
             
                 showcase.Cloud9Carousel( {
                     yOrigin: 42,
                     yRadius: 48,
-                    mirror: {
-                    gap: 12,
-                    height: 0
-                    },
                     buttonLeft: $("#nav > .left"),
                     buttonRight: $("#nav > .right"),
                     autoPlay: 1,
                     bringToFront: true,
                     onRendered: rendered,
                     onLoaded: function() {
-                    showcase.css( 'visibility', 'visible' )
-                    showcase.css( 'display', 'none' )
-                    showcase.fadeIn( 1500 )
+                        showcase.css( 'visibility', 'visible' )
+                        showcase.css( 'display', 'none' )
+                        showcase.fadeIn( 1500 )
                     }
                 } )
             
-                function rendered( carousel ) {
-                    title.text( carousel.nearestItem().element.alt )
-            
+                function rendered(carousel) {
+                    title.text(carousel.nearestItem().element.childNodes[1].alt)
                     // Fade in based on proximity of the item
                     var c = Math.cos((carousel.floatIndex() % 1) * 2 * Math.PI)
                     title.css('opacity', 0.5 + (0.5 * c))
@@ -67,6 +62,7 @@ $(document).ready(function (){
                     /* right arrow */
                     case 39:
                         $('#nav > .right').click()
+                        
                     }
                 } )
                 

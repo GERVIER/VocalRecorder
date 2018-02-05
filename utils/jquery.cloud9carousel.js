@@ -238,6 +238,25 @@
       this.play();
     }
 
+    this.goTo = function( index ) {
+      var count = this.items.length;
+
+      // Find the shortest way to rotate item to front
+      var diff = index - (this.floatIndex() % count);
+
+      if( 2 * Math.abs(diff) > count )
+        diff -= (diff > 0) ? count : -count;
+
+      // Halt any rotation already in progress
+      this.destRotation = this.rotation;
+
+      // Spin the opposite way to bring item to front
+      this.go( -diff );
+
+      // Return rotational distance (in items) to the target
+      return diff;
+    }
+
     this.deactivate = function() {
       this.pause();
       clearInterval( this.autoPlayTimer );
