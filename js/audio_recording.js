@@ -1,14 +1,80 @@
 
-//Basé sur le script de Gérald Barré disponible ici : https://gist.github.com/meziantou/edb7217fddfbb70e899e        
-var ws = new WebSocket("ws://localhost:8888/ws");
-var isServerOnline = false;
-ws.onopen = function(){
-    var servText = document.getElementById("serv_online");
-    servText.innerHTML = "Online";
-    isServerOnline = true;
-};
+//Based on Gérald Barré script disponible here : https://gist.github.com/meziantou/edb7217fddfbb70e899e        
 
-//Existant
+//Global Variable
+var ip = "192.168.1.11";
+var port = "8888";
+var result;
+var msg;
+var ws;
+var isServerOnline;
+var serverConnextionRetry = null;
+var actualisationOn = null
+var peopleIdList = sessionStorage.getItem("idList");
+peopleIdList = JSON.parse(peopleIdList);
+
+function connectToServer(){
+    console.log("Trying to connect to the server...");
+    ws = new WebSocket("ws://"+ip+":"+port+"/client/ws/speech");
+    isServerOnline = false;
+
+    ws.onopen = function(){
+        isServerOnline = true;
+        isWorkerAvailable = false;
+        clearInterval(serverConnextionRetry);
+        console.log("Server Online");
+        $("#circleStatut").css("color", "green");
+        $("#textStatut").html("Online");
+        ws.send("ID LIST : " + peopleIdList);
+    };
+
+    ws.onmessage = function (event) {
+        msg = JSON.parse(event.data);
+        console.log(event.data);
+        if(!isWorkerAvailable){
+            if(msg.status == 9){
+                serverConnextionRetry = setInterval(connectToServer, 5000);
+            }
+            else{
+                isWorkerAvailable = true;
+            }
+        }
+
+        console.log(msg.result);
+        result = msg.result;
+    };
+
+    ws.onerror = function(event){
+        if(serverConnextionRetry == null)
+            serverConnextionRetry = setInterval(connectToServer, 5000);
+        $("#circleStatut").css("color", "red");
+        $("#textStatut").html("Offline");
+    }
+
+    ws.onclose = function(event){
+        $("#circleStatut").css("color", "red");
+        $("#textStatut").html("Offline");
+    }
+}
+
+$(document).ready(function(){
+
+    console.log(peopleIdList);
+    
+    connectToServer();
+    result = [0, 0, 0, 0, 0];
+});
+
+function updateStatut(){
+    var maxi = Math.max(...result);
+    var pos = result.indexOf(maxi);
+    //console.log("Carousel Updated");
+    //console.log("Max : " + maxi + " at pos : " + pos);
+    if(maxi != 0)
+        $("#carousel").data("carousel").goTo(pos);
+}
+
+//Variable
 var startRecordingButton = document.getElementById("startRecordingButton");
 var stopRecordingButton = document.getElementById("stopRecordingButton");
 var playButton = document.getElementById("playButton");
@@ -24,6 +90,7 @@ var blob = null;
 var sendData = true;
 
 function startRecording() {
+    actualisationOn = setInterval(updateStatut, 1000);
     // Initialize recorder
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
     navigator.getUserMedia(
@@ -51,7 +118,7 @@ function startRecording() {
             audioChannel.push(new Float32Array(e.inputBuffer.getChannelData(0)));
             recordingLength += bufferSize;
 
-            //Ajout
+            //Data sending to the server
             if(isServerOnline && sendData){
                 var rowData = new Float32Array(e.inputBuffer.getChannelData(0));
                 
@@ -59,7 +126,6 @@ function startRecording() {
 
                 sendData = true;
             }
-            //---FIN AJOUT
         }
         // we connect the recorder
         mediaStream.connect(recorder);
@@ -71,6 +137,7 @@ function startRecording() {
 }
 
 function stopRecording() {
+    clearInterval(actualisationOn);
     // stop recording
     recorder.disconnect(context.destination);
     mediaStream.disconnect(recorder);
@@ -78,6 +145,8 @@ function stopRecording() {
     console.log("Création du Wav");
     blob = createWavDataMonoChanel(audioChannel, recordingLength);
     console.log("Fichier Créer");
+
+    
 }
 
 playButton.addEventListener("click", function () {
