@@ -124,6 +124,7 @@
             $name = $data['name'];
             $age = $data['age'];
             $picture = $data['picture'];
+            $role = $data['role'];
             if($picture == "undefined"){
                 $picture = "res/img/people/empty.jpg";
             }
@@ -147,9 +148,9 @@
                             </div>
                         </div>
                         <div class="col d-flex flex-column justify-content-center pl-3">
-                            <p class="mb-0"><b>'.$name.'</b></p>
+                            <p class="mb-0"><b>'.$name.'</b>, '.$age.' y/o </p>
                             <p class="mb-0">Language : '.$language.'</p>
-                            <p class="mb-0">'.$age.' year old</p>
+                            <p class="mb-0">Role : '.$role.'</p>
                         </div>
 
                         <div class="col-auto d-flex flex-column justify-content-center pl-3">
@@ -308,8 +309,6 @@
                     </div>';
         }
     }
-
-
     /**
      * Return all the language on the people DB
      */
