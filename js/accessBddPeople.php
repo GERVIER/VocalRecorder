@@ -248,7 +248,7 @@
         $bdd = accessBDD();
 
         
-        $request = $bdd->query('SELECT * FROM people WHERE id in ('.$idList.') ORDER BY name ');
+        $request = $bdd->query('SELECT * FROM people WHERE id in ('.$idList.')');
 
         while($data = $request->fetch()){
             $id = $data['id'];
@@ -259,8 +259,8 @@
             }
             
             echo '  <div onMouseOver="showDeleteButton(this)" onMouseLeave="hideDeleteButton(this)"class=" mx-1 my-1 peopleFinalListImage" data-toggle="tooltip" data-html="true" title="'.$name.'">
-                        <div class="peopleFinalListDeleteBtn hidden" onclick="removePeople(this, '.$id.')">
-                            <p style="text-align: center; margin-top: 2px; padding-bottom: 0px;"> <i class="fas fa-trash" aria-hidden="true"></i> Delete </p>
+                        <div class="peopleFinalListDeleteBtn" onclick="removePeople(this, '.$id.')">
+                            <p style="text-align: center; margin-top: 2px; padding-bottom: 0px;"> <i class="fas fa-trash" aria-hidden="true"></i> '.$id.' </p>
                         </div>
                         <img src="'.$picture.'" alt="'. $name.'" class=" mw-100 mh-100 align-self-center"/>
                     </div>'
@@ -292,7 +292,7 @@
         }
         $bdd = accessBDD();
 
-        $request = $bdd->query('SELECT * FROM people WHERE id in ('.$idList.') ORDER BY name ');
+        $request = $bdd->query('SELECT * FROM people WHERE id in ('.$idList.')');
 
         while($data = $request->fetch()){
             $id = $data['id'];

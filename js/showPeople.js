@@ -12,7 +12,8 @@ $(document).ready(function(){
 
     if(peopleIdList == null)
         peopleIdList = new Array(0);
-    
+    peopleIdList.sort(function(a, b){return a-b});
+
     updatePeopleList();
 
     $("#finalPeopleList").bind({
@@ -101,10 +102,11 @@ function addPeopleToFinalList(id){
             if(peopleIdList.indexOf(id) == -1){
                 peopleIdList.push(id);
             }
+            peopleIdList.sort(function(a, b){return a-b});
             console.log("New List : ");
             updatePeopleList();
             sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
-
+            
             if(peopleIdList.length >= 2)
                 if(messageBox.hasClass("boxInfoMessage"))
                     messageBox.fadeOut();
@@ -137,6 +139,7 @@ function removePeople(ele, id){
             break;
         }
     }
+    peopleIdList.sort(function(a, b){return a-b});
 
     if(pos != -1){
         peopleIdList.splice(i, 1);
@@ -156,9 +159,7 @@ function removePeople(ele, id){
  * Update the view of people to use with the vocal recognition
  */
 function updatePeopleList(){
-    for(i = 0; i<peopleIdList.length; i++){
-        console.log("Id : " + peopleIdList[i]);
-    }
+    console.log(peopleIdList)
 
     if(peopleIdList.length == 0){
         $("#finalPeopleList").html("<p id=\"textNoPeople\"> <i class=\"fas fa-archive\"></i> Add someone to the list, or drag it here !</p>");
