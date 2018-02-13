@@ -12,7 +12,8 @@ $(document).ready(function(){
 
     if(peopleIdList == null)
         peopleIdList = new Array(0);
-    
+    peopleIdList.sort(function(a, b){return a-b});
+
     updatePeopleList();
 
     $("#finalPeopleList").bind({
@@ -63,9 +64,34 @@ function showPeopleInfo(id){
         url : 'accessFunction.php', 
         type : 'POST', 
         data : {fonction : 'getAPeople', id : id}, 
-        dataType : 'text',
-        success : function (result, statut){
-            $("#peopleInfo").html(result);
+        dataType : 'json',
+        success : function (dataReceived, statut){
+            htmlToAdd = '   <!-- People main information  -->'+
+                            '<div class="row mb-2">'+
+                                '<div class="col-3 d-flex flex-column justify-content-center">'+
+                                    '<img id="peopleImage" src="'+dataReceived['picture']+'" alt="'+dataReceived['name']+'" class="rounded-circle mw-100 mh-100 p-0 align-self-center"/>    '+              
+                                '</div>'+
+                                '<div class="col d-flex flex-column justify-content-center">'+
+                                    '<h3 id="peopleName" class="text-center">'+dataReceived['name']+'</h3>'+
+                                    '<p class="text-center mb-0">Speek '+dataReceived['language']+'</p>'+
+                                    '<p class="text-center">'+dataReceived['age']+' years old</p>'+
+                                '</div>'+
+                                '<div class="col-3 d-flex flex-column justify-content-center">'+
+                                '</div>'+
+                            '</div>'+
+
+                            '<!-- Addition information  -->'+
+                            '<div class="row mx-1">'+
+                                '<p class="mb-0">'+
+                                    '<b>Role : </b> '+dataReceived['role']+'  <br />'+
+                                    '<b>Other Information : </b> <br />'+
+                                        '<span class="mx-4"> <b> Micro type :</b> '+dataReceived['microType']+'     <br /> </span>'+
+                                        '<span class="mx-4"> <b> Studio :</b>     '+dataReceived['studio']+'         <br /> </span>'+
+                                        '<span class="mx-4"> <b> Outdoor :</b>    '+dataReceived['outDoor']+'         <br /> </span>'+
+                                '</p>'+
+                            '</div>'
+                
+            $("#peopleInfo").html(htmlToAdd);
             $("#addPeopleToListButton").attr('onclick', 'addPeopleToFinalList('+ id +')')
         },
         error : function (resultat, statut, erreur){
@@ -101,10 +127,11 @@ function addPeopleToFinalList(id){
             if(peopleIdList.indexOf(id) == -1){
                 peopleIdList.push(id);
             }
+            peopleIdList.sort(function(a, b){return a-b});
             console.log("New List : ");
             updatePeopleList();
             sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
-
+            
             if(peopleIdList.length >= 2)
                 if(messageBox.hasClass("boxInfoMessage"))
                     messageBox.fadeOut();
@@ -137,6 +164,7 @@ function removePeople(ele, id){
             break;
         }
     }
+    peopleIdList.sort(function(a, b){return a-b});
 
     if(pos != -1){
         peopleIdList.splice(i, 1);
@@ -156,9 +184,7 @@ function removePeople(ele, id){
  * Update the view of people to use with the vocal recognition
  */
 function updatePeopleList(){
-    for(i = 0; i<peopleIdList.length; i++){
-        console.log("Id : " + peopleIdList[i]);
-    }
+    console.log(peopleIdList)
 
     if(peopleIdList.length == 0){
         $("#finalPeopleList").html("<p id=\"textNoPeople\"> <i class=\"fas fa-archive\"></i> Add someone to the list, or drag it here !</p>");
@@ -167,10 +193,27 @@ function updatePeopleList(){
             url : 'accessFunction.php', 
             type : 'POST', 
             data : {fonction : 'getPeopleFinalList', id : peopleIdList}, 
-            dataType : 'text',
-            success : function (result, statut){
+            dataType : 'json',
+            success : function (dataReceived, statut){
                 $(".peopleFinalListImage").tooltip("hide");
-                $("#finalPeopleList").html(result);
+                html = "";
+                dataReceived.forEach(element => {
+                    id = element['id'];
+                    name = element['name'];
+                    picture = element['picture'];
+                    if(picture == "undefined"){
+                        picture = "res/img/people/empty.jpg";
+                    }
+
+                    html += '   <div onMouseOver="showDeleteButton(this)" onMouseLeave="hideDeleteButton(this)"class=" mx-1 my-1 peopleFinalListImage" data-toggle="tooltip" data-html="true" title="'+name+'">'+
+                                    '<div class="peopleFinalListDeleteBtn hidden" onclick="removePeople(this, '+id+')">'+
+                                        '<p style="text-align: center; margin-top: 2px; padding-bottom: 0px;"> <i class="fas fa-trash" aria-hidden="true"></i> Remove </p>'+
+                                    '</div>'+
+                                    '<img src="'+picture+'" alt="'+name+'" class=" mw-100 mh-100 align-self-center"/>'+
+                                '</div>'
+                });
+
+                $("#finalPeopleList").html(html);
                 $('[data-toggle="tooltip"]').tooltip()
             },
             error : function (resultat, statut, erreur){

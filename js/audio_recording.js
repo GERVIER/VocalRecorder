@@ -1,9 +1,6 @@
-
 //Based on Gérald Barré script disponible here : https://gist.github.com/meziantou/edb7217fddfbb70e899e        
 
 //Global Variable
-var ip = "192.168.1.11";
-var port = "8888";
 var result;
 var msg;
 var ws;
@@ -13,66 +10,12 @@ var actualisationOn = null
 var peopleIdList = sessionStorage.getItem("idList");
 peopleIdList = JSON.parse(peopleIdList);
 
-function connectToServer(){
-    console.log("Trying to connect to the server...");
-    ws = new WebSocket("ws://"+ip+":"+port+"/client/ws/speech");
-    isServerOnline = false;
-
-    ws.onopen = function(){
-        isServerOnline = true;
-        isWorkerAvailable = false;
-        clearInterval(serverConnextionRetry);
-        console.log("Server Online");
-        $("#circleStatut").css("color", "green");
-        $("#textStatut").html("Online");
-        ws.send("ID LIST : " + peopleIdList);
-    };
-
-    ws.onmessage = function (event) {
-        msg = JSON.parse(event.data);
-        console.log(event.data);
-        if(!isWorkerAvailable){
-            if(msg.status == 9){
-                serverConnextionRetry = setInterval(connectToServer, 5000);
-            }
-            else{
-                isWorkerAvailable = true;
-            }
-        }
-
-        console.log(msg.result);
-        result = msg.result;
-    };
-
-    ws.onerror = function(event){
-        if(serverConnextionRetry == null)
-            serverConnextionRetry = setInterval(connectToServer, 5000);
-        $("#circleStatut").css("color", "red");
-        $("#textStatut").html("Offline");
-    }
-
-    ws.onclose = function(event){
-        $("#circleStatut").css("color", "red");
-        $("#textStatut").html("Offline");
-    }
-}
-
 $(document).ready(function(){
-
     console.log(peopleIdList);
     
     connectToServer();
     result = [0, 0, 0, 0, 0];
 });
-
-function updateStatut(){
-    var maxi = Math.max(...result);
-    var pos = result.indexOf(maxi);
-    //console.log("Carousel Updated");
-    //console.log("Max : " + maxi + " at pos : " + pos);
-    if(maxi != 0)
-        $("#carousel").data("carousel").goTo(pos);
-}
 
 //Variable
 var startRecordingButton = document.getElementById("startRecordingButton");
@@ -84,7 +27,7 @@ var recorder = null;
 var recordingLength = 0;
 var volume = null;
 var mediaStream = null;
-var sampleRate = 44100;
+var sampleRate = 16000;
 var context = null;
 var blob = null;
 var sendData = true;
@@ -106,7 +49,7 @@ function startRecording() {
         mediaStream = context.createMediaStreamSource(e);
         // https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/createScriptProcessor
         // bufferSize: the onaudioprocess event is called when the buffer is full
-        var bufferSize = 2048;
+        var bufferSize = 1024;
         var numberOfInputChannels = 1;
         var numberOfOutputChannels = 1;
         if (context.createScriptProcessor) {
@@ -123,7 +66,6 @@ function startRecording() {
                 var rowData = new Float32Array(e.inputBuffer.getChannelData(0));
                 
                 ws.send(rowData);
-
                 sendData = true;
             }
         }

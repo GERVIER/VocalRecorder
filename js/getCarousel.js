@@ -9,16 +9,31 @@ $(document).ready(function (){
         $.ajax({
             url : 'accessFunction.php',
             type : 'POST',
-            data: {fonction: 'getPeopleCarousel', id : peopleIdList},
-            dataType : 'html',
-            success : function (codeHTML, statut){
+            data: {fonction: 'getPeopleFinalList', id : peopleIdList},
+            dataType : 'json',
+            success : function (dataReceived, statut){
 
                 var showcase = $("#carousel"), title = $('#item-title')
 
                 showcase.css( 'visibility', 'hidden' )
-                showcase.html(codeHTML);
 
-            
+                html = "";
+                dataReceived.forEach(element => {
+                    id = element['id'];
+                    name = element['name'];
+                    picture = element['picture'];
+                    if(picture == "undefined"){
+                        picture = "res/img/people/empty.jpg";
+                    }
+
+                    html += '   <div class="cloud9-item">'+
+                                    '<img class="peopleCarouselImg rounded-circle" src="'+picture+'" alt="'+name+'" />'+
+                                    '<span style="visibility:hidden">'+id+'</span> '+
+                                '</div>';
+                });
+
+                showcase.html(html);
+
                 showcase.Cloud9Carousel( {
                     yOrigin: 42,
                     yRadius: 48,
