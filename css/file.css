@@ -9,6 +9,10 @@ audio {
     font-size: 16px; /* Set a font-size */
 }
 
+#start_button{
+    margin-bottom: 5px; 
+}
+
 #testFile {
     border-bottom: 2px dashed #868e96;
     margin-bottom: 0.5em;

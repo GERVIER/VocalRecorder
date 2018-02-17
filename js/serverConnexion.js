@@ -1,7 +1,9 @@
-var ip = "192.168.1.15";
+var ip = "192.168.1.22";
 var port = "8888";
 
 function connectToServer(){
+    result = [0, 0, 0, 0, 0];
+
     console.log("Trying to connect to the server...");
     ws = new WebSocket("ws://"+ip+":"+port+"/client/ws/speech");
     isServerOnline = false;
@@ -10,15 +12,19 @@ function connectToServer(){
         isServerOnline = true;
         isWorkerAvailable = false;
         clearInterval(serverConnextionRetry);
+        serverConnextionRetry = null;
         console.log("Server Online");
         $("#circleStatut").css("color", "green");
         $("#textStatut").html("Online");
-        ws.send("ID LIST : " + JSON.stringify(peopleIdList)+"\n");
+        var peopleIdList2 = sessionStorage.getItem("idList");
+        peopleIdList2 = JSON.parse(peopleIdList2);
+
+        ws.send("ID LIST : \n");
     };
 
     ws.onmessage = function (event) {
         msg = JSON.parse(event.data);
-        console.log(event.data);
+        //console.log(event.data);
         if(!isWorkerAvailable){
             if(msg.status == 9){
                 serverConnextionRetry = setInterval(connectToServer, 5000);
@@ -28,7 +34,7 @@ function connectToServer(){
             }
         }
 
-        console.log(msg.result);
+        //console.log(msg.result);
         result = msg.result;
     };
 
@@ -42,15 +48,9 @@ function connectToServer(){
     ws.onclose = function(event){
         $("#circleStatut").css("color", "red");
         $("#textStatut").html("Offline");
-        serverConnextionRetry = setInterval(connectToServer, 5000);
+        if(serverConnextionRetry == null)
+            serverConnextionRetry = setInterval(connectToServer, 5000);
     }
+
 }
 
-function updateStatut(){
-    var maxi = Math.max(...result);
-    var pos = result.indexOf(maxi);
-    //console.log("Carousel Updated");
-    //console.log("Max : " + maxi + " at pos : " + pos);
-    if(maxi != 0)
-        $("#carousel").data("carousel").goTo(pos);
-}

@@ -1,10 +1,10 @@
 //Based on Gérald Barré script disponible here : https://gist.github.com/meziantou/edb7217fddfbb70e899e        
 
 //Global Variable
-var result;
-var msg;
-var ws;
-var isServerOnline;
+var result = null;
+var msg = null;
+var ws = null;
+var isServerOnline = null;
 var serverConnextionRetry = null;
 var actualisationOn = null
 var peopleIdList = sessionStorage.getItem("idList");
@@ -13,15 +13,12 @@ peopleIdList = JSON.parse(peopleIdList);
 $(document).ready(function(){
     console.log(peopleIdList);
     
-    connectToServer();
+    setTimeout(connectToServer, 1000);
     result = [0, 0, 0, 0, 0];
 });
 
 //Variable
 var startRecordingButton = document.getElementById("startRecordingButton");
-var stopRecordingButton = document.getElementById("stopRecordingButton");
-var playButton = document.getElementById("playButton");
-var downloadButton = document.getElementById("downloadButton");
 var audioChannel = [];
 var recorder = null;
 var recordingLength = 0;
@@ -90,30 +87,6 @@ function stopRecording() {
 
     
 }
-
-playButton.addEventListener("click", function () {
-    if (blob == null) {
-        return;
-    }
-    var url = window.URL.createObjectURL(blob);
-    var audio = new Audio(url);
-    audio.play();
-});
-
-downloadButton.addEventListener("click", function () {
-    if (blob == null) {
-        return;
-    }
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display: none";
-    a.href = url;
-    a.download = "sample.wav";
-    a.click();
-    window.URL.revokeObjectURL(url);
-    console.log("Download Clicked");
-});
 
 /**
  * Flatten an array of array into one array

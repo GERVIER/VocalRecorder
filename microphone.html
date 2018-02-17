@@ -15,7 +15,6 @@
     <!-- Design CSS -->
     <link rel="stylesheet" href="css/result.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/loader.css"> 
     <link rel="stylesheet" href="css/microphone.css">
     <link rel="stylesheet" href="style.css">
 
@@ -25,13 +24,14 @@
     <script src="utils/jquery.reflection.js"></script>
     <script src="utils//jquery.cloud9carousel.js"></script>
     <script src="utils/moment.js"></script>
+    <script src="utils/jquery.flip.min.js"></script>
 
     <!-- Personalised JS -->
     <script src ="js/timer.js"></script>
     <script src ="js/flash.js"></script>
+    <script src ="js/audio_recording.js"></script> 
     <script src ="js/serverConnexion.js"></script>
-    <script src ="js/audio_recording.js"></script>
-    
+
   </head>
       
   <body>
@@ -52,10 +52,9 @@
         </div>
       </header>
 
-
       <div id="content" class="row mx-1">    
-        <div class="col-lg-4"> 
-          <div id="fileZone"  class="col-lg-9 rounded">
+        <div class="col-lg-3"> 
+          <div id="fileZone"  class="col-lg-12 rounded">
             <!-- Tab system for changing the type of audio source -->
             <label style="text-decoration: underline;">Audio source type</label>
             <div id="buttons">
@@ -91,19 +90,16 @@
               <br>
               
               <p> Server Statut : <i id="circleStatut" class="fas fa-circle" style="color:red;"></i> <span id="textStatut"> Offline </span></p>
-
-              <!-- Loader to indicate that the analysis is running-->
-              <div class="loader"></div>
-              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Carousel to display the server result  -->
-        <div id="carouselZone"class="col-lg-8">
-          <div class="wrap">
-            <div id="carousel">
+        <button class="col-lg-1 btn btn-primary btn-custom-flat" id="switchViewButton">Graph view <i class="fas fa-sync-alt" aria-hidden="true"> </i></button>
 
-            </div>
+        <!-- display the server result  -->
+        <div id="card" class="col-lg-8 wrap"> 
+          <div class="front"> 
+            <div id="carousel"></div>
             <footer>
               <p id="item-title">&nbsp;</p>
               <div id="nav" class="noselect">
@@ -114,17 +110,26 @@
                   →
                 </button>
               </div>
+              <p class="text-small">click to display the results graphically</p>
             </footer>
-          </div>
+          </div> 
+          <div class="back">
+            <div id="container"></div>
+            <p class="text-small">click to display the results as a carousel</p>
+          </div> 
         </div>
+
       </div>
     </div>
 
-    <!-- Below is your custom application script -->
+
+    <!-- Additional JS that nned to be loaded at the end -->
     <script src="js/app.js"></script>
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/spider.js"></script>  
     <script src="js/getCarousel.js"></script>
+    <script src ="js/flipAnimation.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+
   </body>
 </html>

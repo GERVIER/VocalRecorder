@@ -1,3 +1,4 @@
+var chartView = null;
 $(document).ready(function (){
     $("#fileZone").addClass("showLeftMenuAnimation");
 
@@ -27,11 +28,11 @@ $(document).ready(function (){
                     }
 
                     html += '   <div class="cloud9-item">'+
-                                    '<img class="peopleCarouselImg rounded-circle" src="'+picture+'" alt="'+name+'" />'+
-                                    '<span style="visibility:hidden">'+id+'</span> '+
+                                    '<div class="'+id+' peopleScore rounded-circle">0 %</div> '+
+                                    '<img class="peopleCarouselImg rounded-circle" src="'+picture+'" alt="'+name+'" />'+                               
                                 '</div>';
                 });
-
+                chartView = createChart(dataReceived);
                 showcase.html(html);
 
                 showcase.Cloud9Carousel( {
@@ -85,3 +86,24 @@ $(document).ready(function (){
         });
     }
 });
+
+/** 
+ * Update the carousel view and the chart
+*/
+function updateStatut(){
+    //Carousel Updating
+    var maxi = Math.max(...result);
+    var pos = result.indexOf(maxi);
+
+    if(maxi != 0)
+        $("#carousel").data("carousel").goTo(pos);
+    
+    var count = 0;
+    peopleIdList.forEach(element => {
+        $("."+element+"").html(result[count] + " %");
+        chartView.series[0].data[count].update(result[count]);
+        count++;
+    });
+
+    
+}
