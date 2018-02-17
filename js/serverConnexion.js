@@ -52,19 +52,5 @@ function connectToServer(){
             serverConnextionRetry = setInterval(connectToServer, 5000);
     }
 
-    //return ws;
 }
 
-function updateStatut(){
-    var maxi = Math.max(...result);
-    var pos = result.indexOf(maxi);
-
-    if(maxi != 0)
-        $("#carousel").data("carousel").goTo(pos);
-    
-    var count = 0;
-    peopleIdList.forEach(element => {
-        $("."+element+"").html(result[count] + " %");
-        count++;
-    });
-}
