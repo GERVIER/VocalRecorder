@@ -24,13 +24,14 @@
     <script src="utils/jquery.reflection.js"></script>
     <script src="utils//jquery.cloud9carousel.js"></script>
     <script src="utils/moment.js"></script>
-    <script src="https://cdn.rawgit.com/nnattawat/flip/v1.1.2/dist/jquery.flip.min.js"></script>
+    <script src="utils/jquery.flip.min.js"></script>
 
     <!-- Personalised JS -->
     <script src ="js/timer.js"></script>
     <script src ="js/flash.js"></script>
-    <script src ="js/serverConnexion.js"></script>
     <script src ="js/audio_recording.js"></script> 
+    <script src ="js/serverConnexion.js"></script>
+
   </head>
       
   <body>
@@ -93,7 +94,7 @@
           </div>
         </div>
 
-        <button class="col-lg-1 btn btn-light btn-custom-flat" id="switchViewButton">Graph view <i class="fas fa-sync-alt" aria-hidden="true"> </i></button>
+        <button class="col-lg-1 btn btn-primary btn-custom-flat" id="switchViewButton">Graph view <i class="fas fa-sync-alt" aria-hidden="true"> </i></button>
 
         <!-- display the server result  -->
         <div id="card" class="col-lg-8 wrap"> 
@@ -109,10 +110,12 @@
                   →
                 </button>
               </div>
+              <p class="text-small">click to display the results graphically</p>
             </footer>
           </div> 
           <div class="back">
             <div id="container"></div>
+            <p class="text-small">click to display the results as a carousel</p>
           </div> 
         </div>
 
@@ -124,7 +127,8 @@
 
     <!-- Additional JS that nned to be loaded at the end -->
     <script src="js/getCarousel.js"></script>
-    <script src="js/file.js"></script>
+    <script src ="js/flipAnimation.js"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>

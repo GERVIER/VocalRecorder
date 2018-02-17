@@ -27,8 +27,8 @@ $(document).ready(function (){
                     }
 
                     html += '   <div class="cloud9-item">'+
-                                    '<img class="peopleCarouselImg rounded-circle" src="'+picture+'" alt="'+name+'" />'+
-                                    '<span style="visibility:hidden">'+id+'</span> '+
+                                    '<div class="'+id+' peopleScore rounded-circle">0 %</div> '+
+                                    '<img class="peopleCarouselImg rounded-circle" src="'+picture+'" alt="'+name+'" />'+                               
                                 '</div>';
                 });
 

@@ -24,11 +24,11 @@
     <script src="utils/jquery.reflection.js"></script>
     <script src="utils//jquery.cloud9carousel.js"></script>
     <script src="utils/moment.js"></script>
-    <script src="https://cdn.rawgit.com/nnattawat/flip/v1.1.2/dist/jquery.flip.min.js"></script>
-    <script src="bootbox.min.js"></script>
-
+    <script src="utils/jquery.flip.min.js"></script>
     
-    
+    <!-- Personalised JS -->
+    <script src ="js/serverConnexion.js"></script>
+    <script src ="js/flipAnimation.js"></script>
   </head>
       
   <body>
@@ -96,11 +96,11 @@
             <div id="inputFile">
               <label style="text-decoration: underline;">Input file</label>
             
-              <input type="file" id="file" />
+              <input class="textFileInfo" type="file" id="file" />
               <audio id="audio"></audio>
               <br>
               <br>
-              <p>
+              <p class="textFileInfo">
                 <label>File Type :</label>
                 <span id="filetype"></span>
                 <br>             
@@ -125,20 +125,22 @@
               </button>
             </div>
 
+            <p> Server Statut : <i id="circleStatut" class="fas fa-circle" style="color:red;"></i> <span id="textStatut"> Offline </span></p>
+
           </div>
         </div>
 
-        <button class="col-lg-1 btn btn-light btn-custom-flat" id="switchViewButton" onclick="changeText()">Graph view <i class="fas fa-sync-alt" aria-hidden="true"> </i></button>
+        <button class="col-lg-1 btn btn-primary btn-custom-flat" id="switchViewButton">Graph view <i class="fas fa-sync-alt" aria-hidden="true"> </i></button>
 
         <!-- display the server result  -->
         <div id="card" class="col-lg-8 wrap"> 
           <div class="front"> 
             <div id="carousel"></div>
-            <p>click to display the results graphically</p>
+            <p class="text-small">click to display the results graphically</p>
           </div> 
           <div class="back">
             <div id="container"></div>
-            <p>click to display the results as a carousel</p>
+            <p class="text-small">click to display the results as a carousel</p>
           </div> 
           
         </div>  
@@ -169,6 +171,7 @@
     <!-- Additional JS that nned to be loaded at the end -->
     <script src="js/getCarousel.js"></script>
     <script src="js/file.js"></script>
+    <script src ="js/flipAnimation.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>

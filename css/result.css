@@ -54,16 +54,32 @@ header{
 
 #switchViewButton {
     height: 100%;
-    background-color: rgba(200, 200, 200,0.7);
 }
 
 .text-small{
+    margin-top: 15px;
     font-size: small;
     font-style: italic;
     text-align: center;
     text-decoration: underline;
 }
 
+.textFileInfo{
+    font-size: small;
+    text-align: center;
+}
+
+
 #container{
     background-color: rgb(235, 235, 235);
+}
+
+.peopleScore{
+    width: 25%;
+    color: white;
+    background-color: rgba(50,50,50,0.8);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+    text-align: center;
+    margin: auto;
+    transform: translateY(100%);
 }

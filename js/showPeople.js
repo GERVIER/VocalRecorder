@@ -237,7 +237,7 @@ function goToRecognition(){
     else{
         sessionStorage.setItem("idList", JSON.stringify(peopleIdList));
         console.log("Data sended to the page");
-        window.location.href = "file.html";
+        window.location.href = "microphone.html";
     }
 }
 
