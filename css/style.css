@@ -74,7 +74,7 @@ body{
     font-family: 'Roboto', sans-serif;
     background-color: rgb(215, 215, 215);
 
-    background-image: url(res/img/background.png);
+    background-image: url(../res/img/background.png);
     background-size: cover;
 }
 
