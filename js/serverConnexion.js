@@ -19,7 +19,7 @@ function connectToServer(){
         var peopleIdList2 = sessionStorage.getItem("idList");
         peopleIdList2 = JSON.parse(peopleIdList2);
 
-        ws.send("ID LIST : \n");
+        ws.send("ID LIST : " + peopleIdList2 + "\n");
     };
 
     ws.onmessage = function (event) {
